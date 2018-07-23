@@ -9,15 +9,31 @@ public class Comment {
 
     private long commentId;
 
-    private Player player;
-    private Challenge challenge;
+    private long playerId;
+    private long challenge;
 
     private Date dateOfComment;
 
-    public Comment(Player player, Challenge challenge, Date dateOfComment) {
-        this.player = player;
+    public Comment(long playerId, long challenge, Date dateOfComment) {
+        this.playerId = playerId;
         this.challenge = challenge;
         this.dateOfComment = dateOfComment;
+    }
+
+    public long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
+    }
+
+    public long getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(long challenge) {
+        this.challenge = challenge;
     }
 
     public long getCommentId() {
@@ -26,22 +42,6 @@ public class Comment {
 
     public void setCommentId(long commentId) {
         this.commentId = commentId;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Challenge getChallenge() {
-        return challenge;
-    }
-
-    public void setChallenge(Challenge challenge) {
-        this.challenge = challenge;
     }
 
     public Date getDateOfComment() {

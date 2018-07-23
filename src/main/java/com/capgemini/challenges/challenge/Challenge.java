@@ -10,10 +10,10 @@ public class Challenge {
 
     private long challengeId;
 
-    private Player playerOne;
-    private Player playerTwo;
+    private long playerOneId;
+    private long playerTwoId;
 
-    private Game game;
+    private long gameId;
 
     private boolean statusPlayerOne;
     private boolean statusPlayerTwo;
@@ -22,14 +22,17 @@ public class Challenge {
 
     private Date dateOfChallenge;
 
-    public Challenge(Player playerOne, Player playerTwo, Game game, boolean statusPlayerOne, boolean statusPlayerTwo, boolean gameStatus, Date dateOfChallenge) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-        this.game = game;
+    public Challenge(long playerOneId, long playerTwoId, long gameId, boolean statusPlayerOne, boolean statusPlayerTwo, boolean gameStatus, Date dateOfChallenge) {
+        this.playerOneId = playerOneId;
+        this.playerTwoId = playerTwoId;
+        this.gameId = gameId;
         this.statusPlayerOne = statusPlayerOne;
         this.statusPlayerTwo = statusPlayerTwo;
         this.gameStatus = gameStatus;
         this.dateOfChallenge = dateOfChallenge;
+    }
+
+    public Challenge() {
     }
 
     public long getChallengeId() {
@@ -40,28 +43,28 @@ public class Challenge {
         this.challengeId = challengeId;
     }
 
-    public Player getPlayerOne() {
-        return playerOne;
+    public long getPlayerOneId() {
+        return playerOneId;
     }
 
-    public void setPlayerOne(Player playerOne) {
-        this.playerOne = playerOne;
+    public void setPlayerOneId(long playerOneId) {
+        this.playerOneId = playerOneId;
     }
 
-    public Player getPlayerTwo() {
-        return playerTwo;
+    public long getPlayerTwoId() {
+        return playerTwoId;
     }
 
-    public void setPlayerTwo(Player playerTwo) {
-        this.playerTwo = playerTwo;
+    public void setPlayerTwoId(long playerTwoId) {
+        this.playerTwoId = playerTwoId;
     }
 
-    public Game getGame() {
-        return game;
+    public long getGameId() {
+        return gameId;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
     }
 
     public boolean isStatusPlayerOne() {

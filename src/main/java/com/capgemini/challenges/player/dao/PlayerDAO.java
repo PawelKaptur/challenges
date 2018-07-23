@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class PlayerDAO {
 
-    private static List<Player> players = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
 
     public PlayerDAO() {
         addPlayers();
@@ -23,7 +23,7 @@ public class PlayerDAO {
         players.add(new Player("peja"));
     }
 
-    public static List<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
