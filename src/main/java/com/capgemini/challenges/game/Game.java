@@ -1,15 +1,8 @@
-package com.capgemini.challenges.entities;
+package com.capgemini.challenges.game;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class Game {
 
-    @Id
-    @GeneratedValue
     private long gameId;
 
     private String name;

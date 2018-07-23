@@ -1,15 +1,12 @@
-package com.capgemini.challenges.entities;
+package com.capgemini.challenges.comment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.capgemini.challenges.challenge.Challenge;
+import com.capgemini.challenges.player.Player;
+
 import java.util.Date;
 
-@Entity
 public class Comment {
 
-    @Id
-    @GeneratedValue
     private long commentId;
 
     private Player player;

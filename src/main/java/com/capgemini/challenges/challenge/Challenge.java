@@ -1,16 +1,14 @@
-package com.capgemini.challenges.entities;
+package com.capgemini.challenges.challenge;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.capgemini.challenges.game.Game;
+import com.capgemini.challenges.player.Player;
+
 import java.util.Date;
 
-@Entity
+
 public class Challenge {
 
-    @Id
-    @GeneratedValue
-    private long challgeneId;
+    private long challengeId;
 
     private Player playerOne;
     private Player playerTwo;
@@ -34,12 +32,12 @@ public class Challenge {
         this.dateOfChallenge = dateOfChallenge;
     }
 
-    public long getChallgeneId() {
-        return challgeneId;
+    public long getChallengeId() {
+        return challengeId;
     }
 
-    public void setChallgeneId(long challgeneId) {
-        this.challgeneId = challgeneId;
+    public void setChallengeId(long challengeId) {
+        this.challengeId = challengeId;
     }
 
     public Player getPlayerOne() {
