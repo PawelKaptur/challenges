@@ -7,7 +7,7 @@ import java.util.List;
 public class Player {
 
     private long playerId;
-    private static long lastPlayerId = -1;
+    //private static long lastPlayerId = -1;
 
     private String username;
     private int score;
@@ -17,10 +17,15 @@ public class Player {
     //to nie wiem czy dobrze
     private List<Game> listOfOwnedGames;
 
-    public Player(String username) {
-        this.playerId = ++lastPlayerId;
+    public Player(long playerId, String username) {
+        //this.playerId = ++lastPlayerId;
+        this.playerId = playerId;
         this.username = username;
         this.score = 0;
+    }
+
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
     }
 
     public long getPlayerId() {

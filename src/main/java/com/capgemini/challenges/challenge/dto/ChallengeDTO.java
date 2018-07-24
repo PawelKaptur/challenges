@@ -1,8 +1,5 @@
 package com.capgemini.challenges.challenge.dto;
 
-import com.capgemini.challenges.game.Game;
-import com.capgemini.challenges.player.Player;
-
 import java.util.Date;
 
 public class ChallengeDTO {
