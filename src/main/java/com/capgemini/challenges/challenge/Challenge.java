@@ -22,7 +22,8 @@ public class Challenge {
 
     private Date dateOfChallenge;
 
-    public Challenge(long playerOneId, long playerTwoId, long gameId, boolean statusPlayerOne, boolean statusPlayerTwo, boolean gameStatus, Date dateOfChallenge) {
+    public Challenge(long challengeId, long playerOneId, long playerTwoId, long gameId, boolean statusPlayerOne, boolean statusPlayerTwo, boolean gameStatus, Date dateOfChallenge) {
+        this.challengeId = challengeId;
         this.playerOneId = playerOneId;
         this.playerTwoId = playerTwoId;
         this.gameId = gameId;
@@ -35,12 +36,12 @@ public class Challenge {
     public Challenge() {
     }
 
-    public long getChallengeId() {
-        return challengeId;
-    }
-
     public void setChallengeId(long challengeId) {
         this.challengeId = challengeId;
+    }
+
+    public long getChallengeId() {
+        return challengeId;
     }
 
     public long getPlayerOneId() {

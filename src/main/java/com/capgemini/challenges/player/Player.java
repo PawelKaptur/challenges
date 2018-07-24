@@ -26,7 +26,7 @@ public class Player {
     public long getPlayerId() {
         return playerId;
     }
-    
+
     public String getUsername() {
         return username;
     }

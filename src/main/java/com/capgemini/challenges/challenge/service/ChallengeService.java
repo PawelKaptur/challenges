@@ -14,9 +14,9 @@ public class ChallengeService {
         this.challengeDAO = challengeDAO;
     }
 
-    public void createChallenge(long challengeId, long gameId, long playerOneId, long plyerTwoId){
+    //jakis validator ze playerOneId nie moze byc rowny z playerTwoId
+    public void createChallenge(long gameId, long playerOneId, long plyerTwoId){
         Challenge challenge = new Challenge();
-        challenge.setChallengeId(challengeId);
         challenge.setGameId(gameId);
         challenge.setPlayerOneId(playerOneId);
         challenge.setPlayerTwoId(plyerTwoId);
@@ -24,7 +24,7 @@ public class ChallengeService {
         challenge.setGameStatus(false);
         challenge.setStatusPlayerOne(false);
         challenge.setStatusPlayerTwo(false);
-        challengeDAO.getChallenges().add(challenge);
+        challengeDAO.addChallenge(challenge);
     }
 
 
