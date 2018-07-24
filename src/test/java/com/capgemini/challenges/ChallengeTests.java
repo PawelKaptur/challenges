@@ -1,17 +1,16 @@
 package com.capgemini.challenges;
 
 import com.capgemini.challenges.challenge.Challenge;
+import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.service.ChallengeService;
-import com.capgemini.challenges.player.Player;
-import com.capgemini.challenges.player.dao.PlayerDAO;
 import org.junit.After;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChallengeTests {
 
@@ -69,12 +68,35 @@ public class ChallengeTests {
         //given
 
         //when
-        challengeService.declineChallenge(0L,2);
-        challengeService.declineChallenge(1L,2);
-        challengeService.declineChallenge(2L,2);
+        challengeService.modifyStatuses(0L,2, UserStatus.DECLINED);
+        challengeService.modifyStatuses(1L,2, UserStatus.DECLINED);
+        challengeService.modifyStatuses(2L,2, UserStatus.DECLINED);
 
         //then
         assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(4);
+    }
+
+    @Test
+    public void shouldAssertEqualBecausePlayerAccepted(){
+        //given
+
+        //when
+        challengeService.modifyStatuses(0L,2, UserStatus.ACCEPTED);
+
+        //then
+        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(0)).isEqualTo(UserStatus.ACCEPTED);
+    }
+
+    @Test
+    public void shouldAssertEqualBecauseNoOneAccepted(){
+        //given
+
+        //when
+
+        //then
+        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(0)).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(1)).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(2)).isEqualTo(UserStatus.UNDECIDED);
     }
 
 }

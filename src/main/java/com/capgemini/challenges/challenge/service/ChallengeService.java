@@ -16,7 +16,7 @@ public class ChallengeService {
         this.challengeDAO = challengeDAO;
     }
 
-    //jakis validator ze playerOneId nie moze byc rowny z playerTwoId
+    //jakis validator ze playerId nie moze sie powtarzac, moze set?
     public void createChallenge(long gameId, List<Long> playersId) {
         Challenge challenge = new Challenge();
         challenge.setGameId(gameId);
@@ -26,25 +26,31 @@ public class ChallengeService {
         challengeDAO.addChallenge(challenge);
     }
 
-    //usunac duplikaty pozniej
-    //beda potrzebne validatory czy challenge jest konkretnego usera i tylko on moze odrzucic lub przyjac, jesli przyjma dwie osoby to reszta nie moze
-    public void acceptChallenge(long playerId, long challengeId) {
-        Challenge challenge = challengeDAO.findChallengeById(challengeId);
-        int playerNumber = challenge.getPlayersId().indexOf(playerId);
-        List<UserStatus> statuses = challenge.getStatusesOfPlayers();
+    public void acceptChallenge(int playerNumber, List<UserStatus> statuses, Challenge challenge) {
         statuses.set(playerNumber, UserStatus.ACCEPTED);
-        challenge.setStatusesOfPlayers(statuses);
-        //challengeDAO.addChallenge(challenge);
+        //nie wiem czy linijka ponizej potrzebna
+        //challenge.setStatusesOfPlayers(statuses);
     }
 
-    //tutaj by sie przdalo sprawdzic czy wszyscy odrzucili challenge, jak tak to usunac
-    public void declineChallenge(long playerId, long challengeId) {
+    public void declineChallenge(int playerNumber, List<UserStatus> statuses, Challenge challenge) {
+        statuses.set(playerNumber, UserStatus.DECLINED);
+        checkingDeclined(challenge);
+    }
+
+    public void modifyStatuses(long playerId, long challengeId, UserStatus userStatus) {
         Challenge challenge = challengeDAO.findChallengeById(challengeId);
         int playerNumber = challenge.getPlayersId().indexOf(playerId);
         List<UserStatus> statuses = challenge.getStatusesOfPlayers();
-        statuses.set(playerNumber, UserStatus.DECLINED);
 
-        //to pojdzie do osobnej metody i zrobic streama z tego
+        if (userStatus.equals(UserStatus.ACCEPTED)) {
+            acceptChallenge(playerNumber, statuses, challenge);
+        } else {
+            declineChallenge(playerNumber, statuses, challenge);
+        }
+    }
+
+    //zrobic streama z tego
+    private void checkingDeclined(Challenge challenge) {
         int countDeclined = 0;
         for (UserStatus status : challenge.getStatusesOfPlayers()) {
             if (!status.equals(UserStatus.DECLINED)) {
@@ -55,7 +61,7 @@ public class ChallengeService {
             }
         }
 
-        if(countDeclined == challenge.getStatusesOfPlayers().size()){
+        if (countDeclined == challenge.getStatusesOfPlayers().size()) {
             challengeDAO.removeChallenge(challenge);
         }
     }

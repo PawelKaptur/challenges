@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class ChallengeDAO {
-    private static long idCounter = -1;
+    private static long idCounter = 0;
     private List<Challenge> challenges = new ArrayList<>();
 
     private static long createID() {

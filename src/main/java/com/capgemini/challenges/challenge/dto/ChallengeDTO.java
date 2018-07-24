@@ -1,30 +1,25 @@
 package com.capgemini.challenges.challenge.dto;
 
+import com.capgemini.challenges.challenge.UserStatus;
+
 import java.util.Date;
+import java.util.List;
 
 public class ChallengeDTO {
 
     private long challengeId;
 
-    private long playerOneId;
-    private long playerTwoId;
-
+    private List<Long> playersId;
     private long gameId;
-
-    private boolean statusPlayerOne;
-    private boolean statusPlayerTwo;
-
+    private List<UserStatus> statusesOfPlayers;
     private boolean gameStatus;
-
     private Date dateOfChallenge;
 
-    public ChallengeDTO(long challengeId, long playerOneId, long playerTwoId, long gameId, boolean statusPlayerOne, boolean statusPlayerTwo, boolean gameStatus, Date dateOfChallenge) {
+    public ChallengeDTO(long challengeId, List<Long> playersId, long gameId, List<UserStatus> statusesOfPlayers, boolean gameStatus, Date dateOfChallenge) {
         this.challengeId = challengeId;
-        this.playerOneId = playerOneId;
-        this.playerTwoId = playerTwoId;
+        this.playersId = playersId;
         this.gameId = gameId;
-        this.statusPlayerOne = statusPlayerOne;
-        this.statusPlayerTwo = statusPlayerTwo;
+        this.statusesOfPlayers = statusesOfPlayers;
         this.gameStatus = gameStatus;
         this.dateOfChallenge = dateOfChallenge;
     }
@@ -40,20 +35,12 @@ public class ChallengeDTO {
         return challengeId;
     }
 
-    public long getPlayerOneId() {
-        return playerOneId;
+    public List<Long> getPlayersId() {
+        return playersId;
     }
 
-    public void setPlayerOneId(long playerOneId) {
-        this.playerOneId = playerOneId;
-    }
-
-    public long getPlayerTwoId() {
-        return playerTwoId;
-    }
-
-    public void setPlayerTwoId(long playerTwoId) {
-        this.playerTwoId = playerTwoId;
+    public void setPlayersId(List<Long> playersId) {
+        this.playersId = playersId;
     }
 
     public long getGameId() {
@@ -64,20 +51,12 @@ public class ChallengeDTO {
         this.gameId = gameId;
     }
 
-    public boolean isStatusPlayerOne() {
-        return statusPlayerOne;
+    public List<UserStatus> getStatusesOfPlayers() {
+        return statusesOfPlayers;
     }
 
-    public void setStatusPlayerOne(boolean statusPlayerOne) {
-        this.statusPlayerOne = statusPlayerOne;
-    }
-
-    public boolean isStatusPlayerTwo() {
-        return statusPlayerTwo;
-    }
-
-    public void setStatusPlayerTwo(boolean statusPlayerTwo) {
-        this.statusPlayerTwo = statusPlayerTwo;
+    public void setStatusesOfPlayers(List<UserStatus> statusesOfPlayers) {
+        this.statusesOfPlayers = statusesOfPlayers;
     }
 
     public boolean isGameStatus() {
