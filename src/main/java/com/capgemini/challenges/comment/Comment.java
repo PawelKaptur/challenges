@@ -1,8 +1,5 @@
 package com.capgemini.challenges.comment;
 
-import com.capgemini.challenges.challenge.Challenge;
-import com.capgemini.challenges.player.Player;
-
 import java.util.Date;
 
 public class Comment {
@@ -10,13 +7,13 @@ public class Comment {
     private long commentId;
 
     private long playerId;
-    private long challenge;
+    private long challengeId;
 
     private Date dateOfComment;
 
-    public Comment(long playerId, long challenge, Date dateOfComment) {
+    public Comment(long playerId, long challengeId, Date dateOfComment) {
         this.playerId = playerId;
-        this.challenge = challenge;
+        this.challengeId = challengeId;
         this.dateOfComment = dateOfComment;
     }
 
@@ -28,12 +25,12 @@ public class Comment {
         this.playerId = playerId;
     }
 
-    public long getChallenge() {
-        return challenge;
+    public long getChallengeId() {
+        return challengeId;
     }
 
-    public void setChallenge(long challenge) {
-        this.challenge = challenge;
+    public void setChallengeId(long challengeId) {
+        this.challengeId = challengeId;
     }
 
     public long getCommentId() {

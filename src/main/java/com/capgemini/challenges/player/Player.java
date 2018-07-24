@@ -7,16 +7,18 @@ import java.util.List;
 public class Player {
 
     private long playerId;
+    private static long lastPlayerId = -1;
 
     private String username;
     private int score;
 
-    //dodac jeszcze ability time
+    //dodac jeszcze ability time, moze jako osobna klasa
 
     //to nie wiem czy dobrze
     private List<Game> listOfOwnedGames;
 
     public Player(String username) {
+        this.playerId = ++lastPlayerId;
         this.username = username;
         this.score = 0;
     }
@@ -24,11 +26,7 @@ public class Player {
     public long getPlayerId() {
         return playerId;
     }
-
-    public void setPlayerId(long playerId) {
-        this.playerId = playerId;
-    }
-
+    
     public String getUsername() {
         return username;
     }

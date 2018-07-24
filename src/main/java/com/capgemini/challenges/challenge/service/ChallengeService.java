@@ -26,4 +26,19 @@ public class ChallengeService {
         challenge.setStatusPlayerTwo(false);
         challengeDAO.getChallenges().add(challenge);
     }
+
+
+    //beda potrzebne validatory czy challenge jest konkretnego usera i tylko on moze odrzucic lub przyjac
+    public void acceptChallenge(long challengeId){
+        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        challengeDAO.removeChallenge(challenge);
+        //jeszcze jakos obczaic ktory player jest ktory
+        challenge.setStatusPlayerOne(true);
+        challengeDAO.addChallenge(challenge);
+    }
+
+    public void declineChallenge(long challengeId){
+        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        challengeDAO.removeChallenge(challenge);
+    }
 }
