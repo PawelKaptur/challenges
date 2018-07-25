@@ -16,8 +16,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,9 +40,6 @@ public class ChallengeTests {
     @Test
     public void shouldAssertEqualBecauseAddedChallenge(){
         //given
-        //Map<Long, UserStatus> userDecision = new TreeMap<>();
-        ///userDecision.put(6L, UserStatus.UNDECIDED);
-        //userDecision.put(7L, UserStatus.UNDECIDED);
         List<Long> playersId = new ArrayList<>();
         playersId.add(1L);
         playersId.add(2L);
@@ -52,7 +47,6 @@ public class ChallengeTests {
         String message = "Lets dance";
 
         //when
-        //challengeService.createChallenge(10, userDecision);
         challengeService.createChallenge(10, 10, playersId, message);
 
         //then
@@ -62,9 +56,6 @@ public class ChallengeTests {
     @Test
     public void shouldAssertEqualBecauseAddedIdShouldBeBiggerByOne(){
         //given
-        //Map<Long, UserStatus> userDecision = new TreeMap<>();
-        //userDecision.put(6L, UserStatus.UNDECIDED);
-        //userDecision.put(7L, UserStatus.UNDECIDED);
         List<Long> playersId = new ArrayList<>();
         playersId.add(1L);
         playersId.add(2L);
@@ -72,7 +63,6 @@ public class ChallengeTests {
         String message = "Lets dance";
 
         //when
-        //challengeService.createChallenge(10, userDecision);
         challengeService.createChallenge(10, 10, playersId, message);
         long challengeId = challengeDAO.findAllChallenges().get(challengeDAO.findAllChallenges().size() - 1).getChallengeId();
         long challengeId2 = challengeDAO.findAllChallenges().get(challengeDAO.findAllChallenges().size() - 2).getChallengeId();
@@ -87,8 +77,8 @@ public class ChallengeTests {
 
         //when
         ChallengeEntity challenge = challengeDAO.findChallengeById(3L);
-        //then
 
+        //then
         assertThat(challenge.getChallengeId()).isEqualTo(3L);
     }
 
@@ -97,25 +87,13 @@ public class ChallengeTests {
         //given
 
         //when
-        //challengeService.modifyStatuses(4L,1, UserStatus.DECLINED);
+        String comment = "I cant";
+        challengeParticipationService.modifyStatus(5L,UserStatus.DECLINED, comment);
 
         //then
-        //assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(4L)).isEqualTo(UserStatus.DECLINED);
-        //assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(4L)).isEqualTo(UserStatus.UNDECIDED);
-        //assertThat(challengeDAO.findChallengeById(3).getUserDecision().get(4L)).isEqualTo(UserStatus.UNDECIDED);
-    }
-
-    @Test
-    public void shouldAssertEqualBecauseEveryoneDeclined(){
-        //given
-
-        //when
-        //challengeService.modifyStatuses(2L,3, UserStatus.DECLINED);
-        //challengeService.modifyStatuses(0L,3, UserStatus.DECLINED);
-        //challengeService.modifyStatuses(4L,3, UserStatus.DECLINED);
-
-        //then
-        assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(5);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(5).getUserStatus()).isEqualTo(UserStatus.DECLINED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(6).getUserStatus()).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(7).getUserStatus()).isEqualTo(UserStatus.UNDECIDED);
     }
 
     @Test
@@ -123,11 +101,12 @@ public class ChallengeTests {
         //given
 
         //when
-        //challengeService.modifyStatuses(0L,3, UserStatus.ACCEPTED);
+        String comment = "Bring it on";
+        challengeParticipationService.modifyStatus(2L,UserStatus.ACCEPTED,  comment);
 
         //then
-       // assertThat(challengeDAO.findChallengeById(0).getUserDecision().get(0L)).isEqualTo(UserStatus.UNDECIDED);
-       // assertThat(challengeDAO.findChallengeById(3).getUserDecision().get(0L)).isEqualTo(UserStatus.ACCEPTED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(8).getUserStatus()).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(2).getUserStatus()).isEqualTo(UserStatus.ACCEPTED);
     }
 
     @Test
@@ -137,17 +116,18 @@ public class ChallengeTests {
         //when
 
         //then
-        //assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(2L)).isEqualTo(UserStatus.UNDECIDED);
-       // assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(1L)).isEqualTo(UserStatus.UNDECIDED);
-        //assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(4L)).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(1).getUserStatus()).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(5).getUserStatus()).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeParticipationDAO.findChallengeParticipationById(9).getUserStatus()).isEqualTo(UserStatus.UNDECIDED);
     }
 
     @Test
     public void shouldAssertEqualBecausePlayerAcceptedOneChallenge(){
         //given
+        String comment = "I accept your challenge";
 
         //when
-        //challengeService.modifyStatuses(0L,0L, UserStatus.ACCEPTED);
+        challengeParticipationService.modifyStatus(2L,UserStatus.ACCEPTED,  comment);
         List<ChallengeEntity> challenges = challengeService.showAcceptedChallenges(0);
 
         //then
@@ -191,8 +171,8 @@ public class ChallengeTests {
         List<ChallengeEntity> systemChallenges3 = challengeService.showChallengesThrownAt(3);
 
         //then
-        assertThat(systemChallenges2.size()).isEqualTo(4);
-        assertThat(systemChallenges3.size()).isEqualTo(2);
+        assertThat(systemChallenges2.size()).isEqualTo(1);
+        assertThat(systemChallenges3.size()).isEqualTo(0);
     }
 
     @Test
@@ -217,6 +197,9 @@ public class ChallengeTests {
         assertThat(playerService.findPlayer(1).getScore()).isEqualTo(10);
         assertThat(playerService.findPlayer(2).getScore()).isEqualTo(0);
         assertThat(playerService.findPlayer(0).getScore()).isEqualTo(0);
+        assertThat(playerService.findPlayer(4).getScore()).isEqualTo(0);
+        assertThat(challengeDAO.findChallengeById(1).isChallengeStatus()).isTrue();
+        assertThat(challengeDAO.findChallengeById(0).isChallengeStatus()).isFalse();
     }
 
 }

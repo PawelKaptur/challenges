@@ -101,7 +101,7 @@ public class ChallengeService {
         List<ChallengeParticipationEntity> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
 
         for(ChallengeParticipationEntity participation: challengeParticipationList){
-            if(participation.getUserId()== playerId){
+            if(participation.getUserId()== playerId && challengeDAO.findChallengeById(participation.getChallengeId()).getThrownBy() != playerId){
                 challengeList.add(challengeDAO.findChallengeById(participation.getChallengeId()));
             }
         }
