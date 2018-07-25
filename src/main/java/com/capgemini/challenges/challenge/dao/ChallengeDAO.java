@@ -26,11 +26,25 @@ public class ChallengeDAO {
         userDecision.put(0L, UserStatus.UNDECIDED);
         userDecision.put(1L, UserStatus.UNDECIDED);
         userDecision.put(2L, UserStatus.UNDECIDED);
+        Map<Long, UserStatus> userDecision2 = new TreeMap<>();
+        userDecision2.put(2L, UserStatus.UNDECIDED);
+        userDecision2.put(1L, UserStatus.UNDECIDED);
+        userDecision2.put(4L, UserStatus.UNDECIDED);
+        Map<Long, UserStatus> userDecision3 = new TreeMap<>();
+        userDecision3.put(2L, UserStatus.UNDECIDED);
+        userDecision3.put(4L, UserStatus.UNDECIDED);
+        Map<Long, UserStatus> userDecision4 = new TreeMap<>();
+        userDecision4.put(2L, UserStatus.UNDECIDED);
+        userDecision4.put(0L, UserStatus.UNDECIDED);
+        userDecision4.put(4L, UserStatus.UNDECIDED);
+        Map<Long, UserStatus> userDecision5 = new TreeMap<>();
+        userDecision5.put(2L, UserStatus.UNDECIDED);
+        userDecision5.put(3L, UserStatus.UNDECIDED);
         challenges.add(new Challenge(createID(), userDecision, 2, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision, 3, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision, 4, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision, 5, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision, 6, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision2, 3, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision3, 4, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision4, 5, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision5, 6, false, new Date()));
     }
 
     public List<Challenge> findAllChallenges() {
@@ -42,9 +56,14 @@ public class ChallengeDAO {
         //Stream<Challenge> stream = challenges.stream();
         //Challenge challenge = (Challenge) stream.filter(c -> c.getGameId() == id);
         //return challenge;
-        for (Challenge challenge : challenges) {
-            if (challenge.getChallengeId() == id) {
-                return challenge;
+        //for (Challenge challenge : challenges) {
+          //  if (challenge.getChallengeId() == id) {
+          //      return challenge;
+          //  }
+        //}
+        for(int i = 0; i < challenges.size(); i++){
+            if(challenges.get(i).getChallengeId() == id){
+                return challenges.get(i);
             }
         }
 
