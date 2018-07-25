@@ -2,28 +2,37 @@ package com.capgemini.challenges.challenge;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 public class Challenge {
 
     private long challengeId;
 
-    private List<Long> playersId;
+    private Map<Long, UserStatus> userDecision;
+    //private List<Long> playersId;
     private long gameId;
-    private List<UserStatus> statusesOfPlayers;
+    //private List<UserStatus> statusesOfPlayers;
     private boolean gameStatus;
     private Date dateOfChallenge;
 
-    public Challenge(long challengeId, List<Long> playersId, long gameId, List<UserStatus> statusesOfPlayers, boolean gameStatus, Date dateOfChallenge) {
+    public Challenge(long challengeId, Map<Long, UserStatus> userDecision, long gameId, boolean gameStatus, Date dateOfChallenge) {
         this.challengeId = challengeId;
-        this.playersId = playersId;
+        this.userDecision = userDecision;
         this.gameId = gameId;
-        this.statusesOfPlayers = statusesOfPlayers;
         this.gameStatus = gameStatus;
         this.dateOfChallenge = dateOfChallenge;
     }
 
     public Challenge() {
+    }
+
+    public Map<Long, UserStatus> getUserDecision() {
+        return userDecision;
+    }
+
+    public void setUserDecision(Map<Long, UserStatus> userDecision) {
+        this.userDecision = userDecision;
     }
 
     public void setChallengeId(long challengeId) {
@@ -34,13 +43,6 @@ public class Challenge {
         return challengeId;
     }
 
-    public List<Long> getPlayersId() {
-        return playersId;
-    }
-
-    public void setPlayersId(List<Long> playersId) {
-        this.playersId = playersId;
-    }
 
     public long getGameId() {
         return gameId;
@@ -50,13 +52,6 @@ public class Challenge {
         this.gameId = gameId;
     }
 
-    public List<UserStatus> getStatusesOfPlayers() {
-        return statusesOfPlayers;
-    }
-
-    public void setStatusesOfPlayers(List<UserStatus> statusesOfPlayers) {
-        this.statusesOfPlayers = statusesOfPlayers;
-    }
 
     public boolean isGameStatus() {
         return gameStatus;

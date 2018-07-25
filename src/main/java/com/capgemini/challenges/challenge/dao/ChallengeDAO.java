@@ -5,9 +5,7 @@ import com.capgemini.challenges.challenge.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class ChallengeDAO {
@@ -24,19 +22,15 @@ public class ChallengeDAO {
     }
 
     private void addChallenges() {
-        List<Long> players = new ArrayList<>();
-        players.add(0L);
-        players.add(1L);
-        players.add(2L);
-        List<UserStatus> playersStatuses = new ArrayList<>();
-        playersStatuses.add(UserStatus.UNDECIDED);
-        playersStatuses.add(UserStatus.UNDECIDED);
-        playersStatuses.add(UserStatus.UNDECIDED);
-        challenges.add(new Challenge(createID(), players, 2, playersStatuses, false, new Date()));
-        challenges.add(new Challenge(createID(), players, 3, playersStatuses, false, new Date()));
-        challenges.add(new Challenge(createID(), players, 4, playersStatuses, false, new Date()));
-        challenges.add(new Challenge(createID(), players, 5, playersStatuses, false, new Date()));
-        challenges.add(new Challenge(createID(), players, 6, playersStatuses, false, new Date()));
+        Map<Long, UserStatus> userDecision = new TreeMap<>();
+        userDecision.put(0L, UserStatus.UNDECIDED);
+        userDecision.put(1L, UserStatus.UNDECIDED);
+        userDecision.put(2L, UserStatus.UNDECIDED);
+        challenges.add(new Challenge(createID(), userDecision, 2, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision, 3, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision, 4, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision, 5, false, new Date()));
+        challenges.add(new Challenge(createID(), userDecision, 6, false, new Date()));
     }
 
     public List<Challenge> findAllChallenges() {

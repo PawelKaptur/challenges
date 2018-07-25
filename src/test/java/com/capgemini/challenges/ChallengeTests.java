@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,12 +27,13 @@ public class ChallengeTests {
     @Test
     public void shouldAssertEqualBecauseAddedChallenge(){
         //given
-        List<Long> playersId = new ArrayList<>();
-        playersId.add(6L);
-        playersId.add(7L);
+        Map<Long, UserStatus> userDecision = new TreeMap<>();
+        userDecision.put(6L, UserStatus.UNDECIDED);
+        userDecision.put(7L, UserStatus.UNDECIDED);
+        //List<Long> playersId = new ArrayList<>();
 
         //when
-        challengeService.createChallenge(10, playersId);
+        challengeService.createChallenge(10, userDecision);
 
         //then
         assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(6);
@@ -39,12 +42,12 @@ public class ChallengeTests {
     @Test
     public void shouldAssertEqualBecauseAddedIdshouldBeBiggerByOne(){
         //given
-        List<Long> playersId = new ArrayList<>();
-        playersId.add(6L);
-        playersId.add(7L);
+        Map<Long, UserStatus> userDecision = new TreeMap<>();
+        userDecision.put(6L, UserStatus.UNDECIDED);
+        userDecision.put(7L, UserStatus.UNDECIDED);
 
         //when
-        challengeService.createChallenge(10, playersId);
+        challengeService.createChallenge(10, userDecision);
         long challengeId = challengeDAO.findAllChallenges().get(challengeDAO.findAllChallenges().size() - 1).getChallengeId();
         long challengeId2 = challengeDAO.findAllChallenges().get(challengeDAO.findAllChallenges().size() - 2).getChallengeId();
 
@@ -61,6 +64,19 @@ public class ChallengeTests {
         //then
 
         assertThat(challenge.getChallengeId()).isEqualTo(3L);
+    }
+
+    @Test
+    public void shouldAssertEqualBecausePlayerDeclined(){
+        //given
+
+        //when
+        challengeService.modifyStatuses(0L,2, UserStatus.DECLINED);
+
+        //then
+        //assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(0)).isEqualTo(UserStatus.DECLINED);
+        assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(0L)).isEqualTo(UserStatus.DECLINED);
+        assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(0L)).isEqualTo(UserStatus.UNDECIDED);
     }
 
     @Test
@@ -84,7 +100,8 @@ public class ChallengeTests {
         challengeService.modifyStatuses(0L,2, UserStatus.ACCEPTED);
 
         //then
-        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(0)).isEqualTo(UserStatus.ACCEPTED);
+        assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(0L)).isEqualTo(UserStatus.ACCEPTED);
+        assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(0L)).isEqualTo(UserStatus.UNDECIDED);
     }
 
     @Test
@@ -94,9 +111,20 @@ public class ChallengeTests {
         //when
 
         //then
-        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(0)).isEqualTo(UserStatus.UNDECIDED);
-        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(1)).isEqualTo(UserStatus.UNDECIDED);
-        assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(2)).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(0L)).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(1L)).isEqualTo(UserStatus.UNDECIDED);
+        assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(2L)).isEqualTo(UserStatus.UNDECIDED);
     }
 
+    @Test
+    public void shouldAssert(){
+        //given
+
+        //when
+        challengeService.modifyStatuses(0L,2, UserStatus.ACCEPTED);
+        List<Challenge> challenges = challengeService.showAcceptedChallenges(0);
+        //then
+
+        assertThat(challenges.size()).isEqualTo(1);
+    }
 }
