@@ -53,18 +53,13 @@ public class ChallengeDAO {
     }
 
     public List<Challenge> findAllChallenges() {
+        // challenges.stream().filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
         return challenges;
     }
 
     public Challenge findChallengeById(long id) {
         Stream<Challenge> stream = challenges.stream();
         Challenge challenge = stream.filter(c -> c.getChallengeId() == id).findFirst().get();
-
-        //for(int i = 0; i < challenges.size(); i++){
-        //    if(challenges.get(i).getChallengeId() == id){
-        //        return challenges.get(i);
-        //    }
-       // }
 
         return challenge;
     }

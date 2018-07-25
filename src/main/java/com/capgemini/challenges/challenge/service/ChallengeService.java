@@ -6,11 +6,13 @@ import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.player.Player;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Service
 public class ChallengeService {
     private final static long SYSTEM_ID = -1;
     private ChallengeDAO challengeDAO;
@@ -81,8 +83,7 @@ public class ChallengeService {
 
     public List<Challenge> showChallengesThrownBy(long playerId) {
         List<Challenge> challenges = challengeDAO.findAllChallenges();
-        Stream<Challenge> stream = challenges.stream();
-        List<Challenge> challengeList = stream.filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
+        List<Challenge> challengeList = challenges.stream().filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
 
         return challengeList;
     }

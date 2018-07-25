@@ -4,6 +4,8 @@ import com.capgemini.challenges.challenge.Challenge;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.service.ChallengeService;
+import com.capgemini.challenges.game.dao.GameDAO;
+import com.capgemini.challenges.game.service.GameService;
 import com.capgemini.challenges.player.Player;
 import com.capgemini.challenges.player.dao.PlayerDAO;
 import com.capgemini.challenges.player.service.PlayerService;
@@ -19,8 +21,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ChallengeTests {
 
     ChallengeDAO challengeDAO = new ChallengeDAO();
+    GameDAO gameDAO = new GameDAO();
     PlayerDAO playerDAO = new PlayerDAO();
-    PlayerService playerService = new PlayerService(playerDAO);
+    GameService gameService = new GameService(gameDAO);
+    PlayerService playerService = new PlayerService(playerDAO, gameService);
     ChallengeService challengeService = new ChallengeService(challengeDAO, playerService);
 
     @After

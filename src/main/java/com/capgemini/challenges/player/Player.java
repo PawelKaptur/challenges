@@ -15,10 +15,11 @@ public class Player {
     //to nie wiem czy dobrze
     private List<Game> listOfOwnedGames;
 
-    public Player(long playerId, String username) {
+    public Player(long playerId, String username, List<Game> listOfOwnedGames) {
         this.playerId = playerId;
         this.username = username;
         this.score = 0;
+        this.listOfOwnedGames = listOfOwnedGames;
     }
 
     public void setPlayerId(long playerId) {
