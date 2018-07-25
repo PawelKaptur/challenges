@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChallengeService {
+    private final static long SYSTEM_ID = -1;
     private ChallengeDAO challengeDAO;
 
     @Autowired
@@ -47,7 +48,7 @@ public class ChallengeService {
         }
     }
 
-    //zrobic streama z tego
+    //zrobic streama z tego, chyba
     private void checkingDeclined(Challenge challenge) {
         int countDeclined = 0;
         for (UserStatus value: challenge.getUserDecision().values()
@@ -66,6 +67,7 @@ public class ChallengeService {
         }
     }
 
+    //tu bedzie mozna streama uzyc
     public List<Challenge> showAcceptedChallenges(long playerId) {
         List<Challenge> challenges = challengeDAO.findAllChallenges();
         List<Challenge> challengeList = new ArrayList<>();
@@ -73,6 +75,23 @@ public class ChallengeService {
                 ) {
             UserStatus userDecision = challenge.getUserDecision().get(playerId);
             if(userDecision != null &&userDecision.equals(UserStatus.ACCEPTED)){
+                challengeList.add(challenge);
+            }
+        }
+
+        return challengeList;
+    }
+
+    public List<Challenge> showChallengesCreatedBySystem(){
+        return showChallengesThrownBy(SYSTEM_ID);
+    }
+
+    public List<Challenge> showChallengesThrownBy(long playerId) {
+        List<Challenge> challenges = challengeDAO.findAllChallenges();
+        List<Challenge> challengeList = new ArrayList<>();
+        for (Challenge challenge : challenges
+                ) {
+            if(challenge.getThrownBy() == playerId){
                 challengeList.add(challenge);
             }
         }

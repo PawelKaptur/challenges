@@ -40,11 +40,15 @@ public class ChallengeDAO {
         Map<Long, UserStatus> userDecision5 = new TreeMap<>();
         userDecision5.put(2L, UserStatus.UNDECIDED);
         userDecision5.put(3L, UserStatus.UNDECIDED);
-        challenges.add(new Challenge(createID(), userDecision, 2, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision2, 3, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision3, 4, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision4, 5, false, new Date()));
-        challenges.add(new Challenge(createID(), userDecision5, 6, false, new Date()));
+        Map<Long, UserStatus> userDecision6 = new TreeMap<>();
+        userDecision5.put(2L, UserStatus.UNDECIDED);
+        userDecision5.put(3L, UserStatus.UNDECIDED);
+        challenges.add(new Challenge(createID(), -1, userDecision, 2, false, new Date()));
+        challenges.add(new Challenge(createID(), 2, userDecision2, 3, false, new Date()));
+        challenges.add(new Challenge(createID(), 4, userDecision3, 4, false, new Date()));
+        challenges.add(new Challenge(createID(), 0,userDecision4, 5, false, new Date()));
+        challenges.add(new Challenge(createID(), 2,userDecision5, 6, false, new Date()));
+        challenges.add(new Challenge(createID(), -1,userDecision6,4,false, new Date()));
     }
 
     public List<Challenge> findAllChallenges() {

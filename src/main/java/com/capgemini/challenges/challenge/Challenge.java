@@ -9,15 +9,16 @@ public class Challenge {
 
     private long challengeId;
 
+    private long thrownBy;
     private Map<Long, UserStatus> userDecision;
-    //private List<Long> playersId;
     private long gameId;
-    //private List<UserStatus> statusesOfPlayers;
     private boolean gameStatus;
     private Date dateOfChallenge;
 
-    public Challenge(long challengeId, Map<Long, UserStatus> userDecision, long gameId, boolean gameStatus, Date dateOfChallenge) {
+
+    public Challenge(long challengeId, long thrownBy, Map<Long, UserStatus> userDecision, long gameId, boolean gameStatus, Date dateOfChallenge) {
         this.challengeId = challengeId;
+        this.thrownBy = thrownBy;
         this.userDecision = userDecision;
         this.gameId = gameId;
         this.gameStatus = gameStatus;
@@ -25,6 +26,14 @@ public class Challenge {
     }
 
     public Challenge() {
+    }
+
+    public long getThrownBy() {
+        return thrownBy;
+    }
+
+    public void setThrownBy(long thrownBy) {
+        this.thrownBy = thrownBy;
     }
 
     public Map<Long, UserStatus> getUserDecision() {

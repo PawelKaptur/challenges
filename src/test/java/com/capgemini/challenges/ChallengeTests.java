@@ -7,7 +7,6 @@ import com.capgemini.challenges.challenge.service.ChallengeService;
 import org.junit.After;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -30,13 +29,12 @@ public class ChallengeTests {
         Map<Long, UserStatus> userDecision = new TreeMap<>();
         userDecision.put(6L, UserStatus.UNDECIDED);
         userDecision.put(7L, UserStatus.UNDECIDED);
-        //List<Long> playersId = new ArrayList<>();
 
         //when
         challengeService.createChallenge(10, userDecision);
 
         //then
-        assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(6);
+        assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(7);
     }
 
     @Test
@@ -74,7 +72,6 @@ public class ChallengeTests {
         challengeService.modifyStatuses(4L,1, UserStatus.DECLINED);
 
         //then
-        //assertThat(challengeDAO.findChallengeById(2).getStatusesOfPlayers().get(0)).isEqualTo(UserStatus.DECLINED);
         assertThat(challengeDAO.findChallengeById(1).getUserDecision().get(4L)).isEqualTo(UserStatus.DECLINED);
         assertThat(challengeDAO.findChallengeById(2).getUserDecision().get(4L)).isEqualTo(UserStatus.UNDECIDED);
         assertThat(challengeDAO.findChallengeById(3).getUserDecision().get(4L)).isEqualTo(UserStatus.UNDECIDED);
@@ -90,7 +87,7 @@ public class ChallengeTests {
         challengeService.modifyStatuses(4L,3, UserStatus.DECLINED);
 
         //then
-        assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(4);
+        assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(5);
     }
 
     @Test
@@ -128,5 +125,33 @@ public class ChallengeTests {
         //then
 
         assertThat(challenges.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldAssertEqualBecauseSystemCreatedOneChallenge(){
+        //given
+
+        //when
+        List<Challenge> systemChallenges = challengeService.showChallengesCreatedBySystem();
+        //then
+
+        assertThat(systemChallenges.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void shouldAssertEqualBecauseForThrownChallengesByUsers(){
+        //given
+
+        //when
+        List<Challenge> systemChallenges0 = challengeService.showChallengesThrownBy(0);
+        List<Challenge> systemChallenges2 = challengeService.showChallengesThrownBy(2);
+        List<Challenge> systemChallenges3 = challengeService.showChallengesThrownBy(3);
+        List<Challenge> systemChallenges4 = challengeService.showChallengesThrownBy(4);
+        //then
+
+        assertThat(systemChallenges0.size()).isEqualTo(1);
+        assertThat(systemChallenges2.size()).isEqualTo(2);
+        assertThat(systemChallenges3.size()).isEqualTo(0);
+        assertThat(systemChallenges4.size()).isNotEqualTo(0);
     }
 }
