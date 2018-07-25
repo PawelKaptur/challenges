@@ -1,6 +1,6 @@
 package com.capgemini.challenges;
 
-import com.capgemini.challenges.challenge.Challenge;
+import com.capgemini.challenges.challenge.ChallengeEntity;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.service.ChallengeService;
@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChallengeTests {
+public class ChallengeEntityTests {
 
     ChallengeDAO challengeDAO = new ChallengeDAO();
     GameDAO gameDAO = new GameDAO();
@@ -68,7 +68,7 @@ public class ChallengeTests {
         //given
 
         //when
-        Challenge challenge = challengeDAO.findChallengeById(3L);
+        ChallengeEntity challenge = challengeDAO.findChallengeById(3L);
         //then
 
         assertThat(challenge.getChallengeId()).isEqualTo(3L);
@@ -130,7 +130,7 @@ public class ChallengeTests {
 
         //when
         challengeService.modifyStatuses(0L,0L, UserStatus.ACCEPTED);
-        List<Challenge> challenges = challengeService.showAcceptedChallenges(0);
+        List<ChallengeEntity> challenges = challengeService.showAcceptedChallenges(0);
 
         //then
         assertThat(challenges.size()).isEqualTo(1);
@@ -141,7 +141,7 @@ public class ChallengeTests {
         //given
 
         //when
-        List<Challenge> systemChallenges = challengeService.showChallengesCreatedBySystem();
+        List<ChallengeEntity> systemChallenges = challengeService.showChallengesCreatedBySystem();
 
         //then
         assertThat(systemChallenges.size()).isEqualTo(2);
@@ -152,10 +152,10 @@ public class ChallengeTests {
         //given
 
         //when
-        List<Challenge> systemChallenges0 = challengeService.showChallengesThrownBy(0);
-        List<Challenge> systemChallenges2 = challengeService.showChallengesThrownBy(2);
-        List<Challenge> systemChallenges3 = challengeService.showChallengesThrownBy(3);
-        List<Challenge> systemChallenges4 = challengeService.showChallengesThrownBy(4);
+        List<ChallengeEntity> systemChallenges0 = challengeService.showChallengesThrownBy(0);
+        List<ChallengeEntity> systemChallenges2 = challengeService.showChallengesThrownBy(2);
+        List<ChallengeEntity> systemChallenges3 = challengeService.showChallengesThrownBy(3);
+        List<ChallengeEntity> systemChallenges4 = challengeService.showChallengesThrownBy(4);
 
         //then
         assertThat(systemChallenges0.size()).isEqualTo(1);
@@ -169,8 +169,8 @@ public class ChallengeTests {
         //given
 
         //when
-        List<Challenge> systemChallenges2 = challengeService.showChallengesThrownAt(2);
-        List<Challenge> systemChallenges3 = challengeService.showChallengesThrownAt(3);
+        List<ChallengeEntity> systemChallenges2 = challengeService.showChallengesThrownAt(2);
+        List<ChallengeEntity> systemChallenges3 = challengeService.showChallengesThrownAt(3);
 
         //then
         assertThat(systemChallenges2.size()).isEqualTo(4);

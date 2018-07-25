@@ -1,8 +1,10 @@
 package com.capgemini.challenges.challenge.service;
 
-import com.capgemini.challenges.challenge.Challenge;
+import com.capgemini.challenges.challenge.ChallengeEntity;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
+import com.capgemini.challenges.challengeParticipation.dao.ChallengeParticipationDao;
+import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
 import com.capgemini.challenges.player.Player;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,56 +19,45 @@ public class ChallengeService {
     private final static long SYSTEM_ID = -1;
     private ChallengeDAO challengeDAO;
     private PlayerService playerService;
+    private ChallengeParticipationService challengeParticipationService;
 
     @Autowired
-    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService) {
+    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService, ChallengeParticipationService challengeParticipationService) {
         this.challengeDAO = challengeDAO;
         this.playerService = playerService;
+        this.challengeParticipationService = challengeParticipationService;
     }
 
-    public void createChallenge(long gameId, Map<Long, UserStatus> usersDecisions) {
-        Challenge challenge = new Challenge();
+    public void createChallenge(long playerId, long gameId, List<Long> playersId, String message) {
+        ChallengeEntity challenge = new ChallengeEntity();
+        challenge.setThrownBy(playerId);
         challenge.setGameId(gameId);
-        challenge.setUserDecision(usersDecisions);
         challenge.setDateOfChallenge(new Date());
-        challenge.setGameStatus(false);
+        challenge.setInvitationMessage(message);
+        challenge.setChallengeStatus(false);
+
         challengeDAO.addChallenge(challenge);
+        challengeParticipationService.createChallengeParticipations(challenge.getChallengeId(), playersId);
     }
 
-    public void acceptChallenge(long playerId, Map<Long, UserStatus> usersDecisions) {
-        usersDecisions.put(playerId, UserStatus.ACCEPTED);
-    }
+    //to chyba moze byc tutaj ale moze w participation, to na razie niewymagane
+   // private void checkingDeclined(ChallengeEntity challenge) {
+ //       Collection<UserStatus> collection = challenge.getUserDecision().values();
+    //    Stream<UserStatus> stream = collection.stream();
+    //    long countDeclined = stream.filter(u -> u.equals(UserStatus.DECLINED)).count();
+    //    if (countDeclined == challenge.getUserDecision().size()) {
+    //        challengeDAO.removeChallenge(challenge);
+   //     }
+   // }
 
-    public void declineChallenge(long playerId, Map<Long, UserStatus> usersDecisions, Challenge challenge) {
-        usersDecisions.put(playerId, UserStatus.DECLINED);
-        checkingDeclined(challenge);
-    }
+    //to chyba moze byc tutaj ale moze w participation
+    public List<ChallengeEntity> showAcceptedChallenges(long playerId) {
+        List<ChallengeEntity> challenges = challengeDAO.findAllChallenges();
+        List<ChallengeEntity> challengeList = new ArrayList<>();
 
-    public void modifyStatuses(long playerId, long challengeId, UserStatus userStatus) {
-        Challenge challenge = challengeDAO.findChallengeById(challengeId);
-        Map<Long, UserStatus> usersDecisions = challenge.getUserDecision();
 
-        if (userStatus.equals(UserStatus.ACCEPTED)) {
-            acceptChallenge(playerId, usersDecisions);
-        } else {
-            declineChallenge(playerId, usersDecisions, challenge);
-        }
-    }
-
-    private void checkingDeclined(Challenge challenge) {
-        Collection<UserStatus> collection = challenge.getUserDecision().values();
-        Stream<UserStatus> stream = collection.stream();
-        long countDeclined = stream.filter(u -> u.equals(UserStatus.DECLINED)).count();
-        if (countDeclined == challenge.getUserDecision().size()) {
-            challengeDAO.removeChallenge(challenge);
-        }
-    }
-
-    public List<Challenge> showAcceptedChallenges(long playerId) {
-        List<Challenge> challenges = challengeDAO.findAllChallenges();
-        List<Challenge> challengeList = new ArrayList<>();
-
-        for (Challenge challenge : challenges
+        //musze miec idPlayera i szukam po participations jego id i tam gdzie jest accepted to zwracam po id challenge i dodaje do listy
+        for (ChallengeEntity challenge : challenges
                 ) {
             UserStatus userDecision = challenge.getUserDecision().get(playerId);
             if (userDecision != null && userDecision.equals(UserStatus.ACCEPTED)) {
@@ -77,21 +68,24 @@ public class ChallengeService {
         return challengeList;
     }
 
-    public List<Challenge> showChallengesCreatedBySystem() {
+    //to chyba spoko
+    public List<ChallengeEntity> showChallengesCreatedBySystem() {
         return showChallengesThrownBy(SYSTEM_ID);
     }
 
-    public List<Challenge> showChallengesThrownBy(long playerId) {
-        List<Challenge> challenges = challengeDAO.findAllChallenges();
-        List<Challenge> challengeList = challenges.stream().filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
+    //to chyba tez
+    public List<ChallengeEntity> showChallengesThrownBy(long playerId) {
+        List<ChallengeEntity> challenges = challengeDAO.findAllChallenges();
+        List<ChallengeEntity> challengeList = challenges.stream().filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
 
         return challengeList;
     }
 
-    public List<Challenge> showChallengesThrownAt(long playerId) {
-        List<Challenge> challenges = challengeDAO.findAllChallenges();
-        List<Challenge> challengeList = new ArrayList<>();
-        for (Challenge challenge : challenges) {
+    //to szukac w participation i zwracac challenge po id
+    public List<ChallengeEntity> showChallengesThrownAt(long playerId) {
+        List<ChallengeEntity> challenges = challengeDAO.findAllChallenges();
+        List<ChallengeEntity> challengeList = new ArrayList<>();
+        for (ChallengeEntity challenge : challenges) {
             Map<Long, UserStatus> usersDecisions = challenge.getUserDecision();
             if (usersDecisions.containsKey(playerId) && challenge.getThrownBy() != playerId) {
                 challengeList.add(challenge);
@@ -102,7 +96,7 @@ public class ChallengeService {
     }
 
     public List<Player> showOpponentsInfoBySelectingChallenge(long challengeId){
-        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        ChallengeEntity challenge = challengeDAO.findChallengeById(challengeId);
         Map<Long, UserStatus> usersDecisions = challenge.getUserDecision();
         List<Long> playersId = new ArrayList<>(usersDecisions.keySet());
         List<Player> players = new ArrayList<>();
@@ -116,7 +110,7 @@ public class ChallengeService {
     }
 
     public void endOfChallenge(long winnerId, long challengeId) {
-        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        ChallengeEntity challenge = challengeDAO.findChallengeById(challengeId);
         challenge.setGameStatus(true);
         int points = 10;
         playerService.addPoints(winnerId, points);
@@ -124,7 +118,7 @@ public class ChallengeService {
 
     //zapisywanie informacji o zakonczonej grze, dokonczyc
     public void saveChallenge(long challengeId){
-        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        ChallengeEntity challenge = challengeDAO.findChallengeById(challengeId);
         if (challenge.isGameStatus()){
 
         }
