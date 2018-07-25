@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class ChallengeParticipationDao {
+public class ChallengeParticipationDAO {
     private static long idCounter = 0;
     private List<ChallengeParticipationEntity> challengeParticipations = new ArrayList<>();
 
@@ -17,7 +17,7 @@ public class ChallengeParticipationDao {
     }
 
     @Autowired
-    public ChallengeParticipationDao() {
+    public ChallengeParticipationDAO() {
         addChallengesParticipation();
     }
 
@@ -41,4 +41,13 @@ public class ChallengeParticipationDao {
         challengeParticipation.setChallengeParticipationId(createID());
         challengeParticipations.add(challengeParticipation);
     }
+
+    public List<ChallengeParticipationEntity> findAllChallengeParticipations() {
+        return challengeParticipations;
+    }
+
+    public static void setIdCounter(long idCounter) {
+        ChallengeParticipationDAO.idCounter = idCounter;
+    }
+
 }
