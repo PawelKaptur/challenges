@@ -3,20 +3,21 @@ package com.capgemini.challenges.challenge.service;
 import com.capgemini.challenges.challenge.Challenge;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
+import com.capgemini.challenges.player.Player;
+import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ChallengeService {
     private final static long SYSTEM_ID = -1;
     private ChallengeDAO challengeDAO;
+    private PlayerService playerService;
 
     @Autowired
-    public ChallengeService(ChallengeDAO challengeDAO) {
+    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService) {
         this.challengeDAO = challengeDAO;
+        this.playerService = playerService;
     }
 
     public void createChallenge(long gameId, Map<Long, UserStatus> usersDecisions) {
@@ -109,6 +110,20 @@ public class ChallengeService {
         }
 
         return challengeList;
+    }
+
+    public List<Player> showOpponentsInfoBySelectingChallenge(long challengeId){
+        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        Map<Long, UserStatus> usersDecisions = challenge.getUserDecision();
+        List<Long> playersId = new ArrayList<>(usersDecisions.keySet());
+        List<Player> players = new ArrayList<>();
+
+        for (Long id: playersId) {
+            Player player = playerService.findPlayer(id);
+            players.add(player);
+        }
+
+        return players;
     }
 
     //tutaj dodawanie pkt zwyciezcy

@@ -7,8 +7,6 @@ import java.util.List;
 public class Player {
 
     private long playerId;
-    //private static long lastPlayerId = -1;
-
     private String username;
     private int score;
 
@@ -18,7 +16,6 @@ public class Player {
     private List<Game> listOfOwnedGames;
 
     public Player(long playerId, String username) {
-        //this.playerId = ++lastPlayerId;
         this.playerId = playerId;
         this.username = username;
         this.score = 0;

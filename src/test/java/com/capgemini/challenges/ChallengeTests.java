@@ -4,6 +4,9 @@ import com.capgemini.challenges.challenge.Challenge;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.service.ChallengeService;
+import com.capgemini.challenges.player.Player;
+import com.capgemini.challenges.player.dao.PlayerDAO;
+import com.capgemini.challenges.player.service.PlayerService;
 import org.junit.After;
 import org.junit.Test;
 
@@ -16,7 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ChallengeTests {
 
     ChallengeDAO challengeDAO = new ChallengeDAO();
-    ChallengeService challengeService = new ChallengeService(challengeDAO);
+    PlayerDAO playerDAO = new PlayerDAO();
+    PlayerService playerService = new PlayerService(playerDAO);
+    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService);
 
     @After
     public void emptyList(){
@@ -165,5 +170,16 @@ public class ChallengeTests {
         //then
         assertThat(systemChallenges2.size()).isEqualTo(4);
         assertThat(systemChallenges3.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void should(){
+        //given
+
+        //when
+        List<Player> players = challengeService.showOpponentsInfoBySelectingChallenge(2);
+
+        //then
+        assertThat(players.size()).isEqualTo(2);
     }
 }

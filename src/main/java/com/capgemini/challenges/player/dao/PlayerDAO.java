@@ -16,19 +16,30 @@ public class PlayerDAO {
         addPlayers();
     }
 
-    private void addPlayers(){
-        players.add(new Player(createID(),"koxik1993"));
-        players.add(new Player(createID(),"eminiem"));
-        players.add(new Player(createID(),"rutowicz"));
-        players.add(new Player(createID(),"tede"));
-        players.add(new Player(createID(),"peja"));
+    private void addPlayers() {
+        players.add(new Player(createID(), "koxik1993"));
+        players.add(new Player(createID(), "eminiem"));
+        players.add(new Player(createID(), "rutowicz"));
+        players.add(new Player(createID(), "tede"));
+        players.add(new Player(createID(), "peja"));
+    }
+
+    private static long createID() {
+        return idCounter++;
     }
 
     public List<Player> getPlayers() {
         return players;
     }
 
-    private static long createID() {
-        return idCounter++;
+    public Player findPlayerById(long playerId) {
+
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getPlayerId() == playerId) {
+                return players.get(i);
+            }
+        }
+
+        return null;
     }
 }
