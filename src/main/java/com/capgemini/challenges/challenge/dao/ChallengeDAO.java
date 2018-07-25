@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Repository
 public class ChallengeDAO {
@@ -55,23 +56,17 @@ public class ChallengeDAO {
         return challenges;
     }
 
-    //to obczaic czy spoko
     public Challenge findChallengeById(long id) {
-        //Stream<Challenge> stream = challenges.stream();
-        //Challenge challenge = (Challenge) stream.filter(c -> c.getGameId() == id);
-        //return challenge;
-        //for (Challenge challenge : challenges) {
-          //  if (challenge.getChallengeId() == id) {
-          //      return challenge;
-          //  }
-        //}
-        for(int i = 0; i < challenges.size(); i++){
-            if(challenges.get(i).getChallengeId() == id){
-                return challenges.get(i);
-            }
-        }
+        Stream<Challenge> stream = challenges.stream();
+        Challenge challenge = stream.filter(c -> c.getChallengeId() == id).findFirst().get();
 
-        return null;
+        //for(int i = 0; i < challenges.size(); i++){
+        //    if(challenges.get(i).getChallengeId() == id){
+        //        return challenges.get(i);
+        //    }
+       // }
+
+        return challenge;
     }
 
     public void addChallenge(Challenge challenge) {
@@ -81,10 +76,6 @@ public class ChallengeDAO {
 
     public void removeChallenge(Challenge challenge) {
         challenges.remove(challenge);
-    }
-
-    public void setChallenges(List<Challenge> challenges) {
-        this.challenges = challenges;
     }
 
     public static void setIdCounter(long idCounter) {

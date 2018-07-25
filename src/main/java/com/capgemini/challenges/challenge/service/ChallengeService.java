@@ -8,6 +8,8 @@ import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ChallengeService {
     private final static long SYSTEM_ID = -1;
@@ -49,28 +51,19 @@ public class ChallengeService {
         }
     }
 
-    //zrobic streama z tego, chyba
     private void checkingDeclined(Challenge challenge) {
-        int countDeclined = 0;
-        for (UserStatus value : challenge.getUserDecision().values()
-                ) {
-            if (!value.equals(UserStatus.DECLINED)) {
-                break;
-            } else {
-                countDeclined++;
-                continue;
-            }
-        }
-
+        Collection<UserStatus> collection = challenge.getUserDecision().values();
+        Stream<UserStatus> stream = collection.stream();
+        long countDeclined = stream.filter(u -> u.equals(UserStatus.DECLINED)).count();
         if (countDeclined == challenge.getUserDecision().size()) {
             challengeDAO.removeChallenge(challenge);
         }
     }
 
-    //tu bedzie mozna streama uzyc
     public List<Challenge> showAcceptedChallenges(long playerId) {
         List<Challenge> challenges = challengeDAO.findAllChallenges();
         List<Challenge> challengeList = new ArrayList<>();
+
         for (Challenge challenge : challenges
                 ) {
             UserStatus userDecision = challenge.getUserDecision().get(playerId);
@@ -88,14 +81,9 @@ public class ChallengeService {
 
     public List<Challenge> showChallengesThrownBy(long playerId) {
         List<Challenge> challenges = challengeDAO.findAllChallenges();
-        List<Challenge> challengeList = new ArrayList<>();
-        for (Challenge challenge : challenges
-                ) {
-            if (challenge.getThrownBy() == playerId) {
-                challengeList.add(challenge);
-            }
-        }
-
+        Stream<Challenge> stream = challenges.stream();
+        List<Challenge> challengeList = stream.filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
+        
         return challengeList;
     }
 
