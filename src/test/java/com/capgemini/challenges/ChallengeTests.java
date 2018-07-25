@@ -120,26 +120,25 @@ public class ChallengeTests {
 
         //when
         challengeService.modifyStatuses(0L,0L, UserStatus.ACCEPTED);
-        System.out.println(challengeDAO.findChallengeById(0).getUserDecision());
         List<Challenge> challenges = challengeService.showAcceptedChallenges(0);
-        //then
 
+        //then
         assertThat(challenges.size()).isEqualTo(1);
     }
 
     @Test
-    public void shouldAssertEqualBecauseSystemCreatedOneChallenge(){
+    public void shouldAssertEqualBecauseSystemCreatedTwoChallenges(){
         //given
 
         //when
         List<Challenge> systemChallenges = challengeService.showChallengesCreatedBySystem();
-        //then
 
+        //then
         assertThat(systemChallenges.size()).isEqualTo(2);
     }
 
     @Test
-    public void shouldAssertEqualBecauseForThrownChallengesByUsers(){
+    public void shouldAssertEqualForThrownChallengesByUsers(){
         //given
 
         //when
@@ -147,11 +146,24 @@ public class ChallengeTests {
         List<Challenge> systemChallenges2 = challengeService.showChallengesThrownBy(2);
         List<Challenge> systemChallenges3 = challengeService.showChallengesThrownBy(3);
         List<Challenge> systemChallenges4 = challengeService.showChallengesThrownBy(4);
-        //then
 
+        //then
         assertThat(systemChallenges0.size()).isEqualTo(1);
         assertThat(systemChallenges2.size()).isEqualTo(2);
         assertThat(systemChallenges3.size()).isEqualTo(0);
         assertThat(systemChallenges4.size()).isNotEqualTo(0);
+    }
+
+    @Test
+    public void shouldAssertForChallengesThrownAtUsers(){
+        //given
+
+        //when
+        List<Challenge> systemChallenges2 = challengeService.showChallengesThrownAt(2);
+        List<Challenge> systemChallenges3 = challengeService.showChallengesThrownAt(3);
+
+        //then
+        assertThat(systemChallenges2.size()).isEqualTo(4);
+        assertThat(systemChallenges3.size()).isEqualTo(2);
     }
 }

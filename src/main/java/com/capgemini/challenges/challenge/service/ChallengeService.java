@@ -51,12 +51,11 @@ public class ChallengeService {
     //zrobic streama z tego, chyba
     private void checkingDeclined(Challenge challenge) {
         int countDeclined = 0;
-        for (UserStatus value: challenge.getUserDecision().values()
-             ) {
-            if(!value.equals(UserStatus.DECLINED)){
+        for (UserStatus value : challenge.getUserDecision().values()
+                ) {
+            if (!value.equals(UserStatus.DECLINED)) {
                 break;
-            }
-            else {
+            } else {
                 countDeclined++;
                 continue;
             }
@@ -74,7 +73,7 @@ public class ChallengeService {
         for (Challenge challenge : challenges
                 ) {
             UserStatus userDecision = challenge.getUserDecision().get(playerId);
-            if(userDecision != null &&userDecision.equals(UserStatus.ACCEPTED)){
+            if (userDecision != null && userDecision.equals(UserStatus.ACCEPTED)) {
                 challengeList.add(challenge);
             }
         }
@@ -82,7 +81,7 @@ public class ChallengeService {
         return challengeList;
     }
 
-    public List<Challenge> showChallengesCreatedBySystem(){
+    public List<Challenge> showChallengesCreatedBySystem() {
         return showChallengesThrownBy(SYSTEM_ID);
     }
 
@@ -91,7 +90,20 @@ public class ChallengeService {
         List<Challenge> challengeList = new ArrayList<>();
         for (Challenge challenge : challenges
                 ) {
-            if(challenge.getThrownBy() == playerId){
+            if (challenge.getThrownBy() == playerId) {
+                challengeList.add(challenge);
+            }
+        }
+
+        return challengeList;
+    }
+
+    public List<Challenge> showChallengesThrownAt(long playerId) {
+        List<Challenge> challenges = challengeDAO.findAllChallenges();
+        List<Challenge> challengeList = new ArrayList<>();
+        for (Challenge challenge : challenges) {
+            Map<Long, UserStatus> usersDecisions = challenge.getUserDecision();
+            if (usersDecisions.containsKey(playerId) && challenge.getThrownBy() != playerId) {
                 challengeList.add(challenge);
             }
         }
