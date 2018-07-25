@@ -83,7 +83,7 @@ public class ChallengeService {
         List<Challenge> challenges = challengeDAO.findAllChallenges();
         Stream<Challenge> stream = challenges.stream();
         List<Challenge> challengeList = stream.filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
-        
+
         return challengeList;
     }
 
@@ -114,8 +114,18 @@ public class ChallengeService {
         return players;
     }
 
-    //tutaj dodawanie pkt zwyciezcy
-    public void endOfChallenge() {
+    public void endOfChallenge(long winnerId, long challengeId) {
+        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        challenge.setGameStatus(true);
+        int points = 10;
+        playerService.addPoints(winnerId, points);
+    }
 
+    //zapisywanie informacji o zakonczonej grze, dokonczyc
+    public void saveChallenge(long challengeId){
+        Challenge challenge = challengeDAO.findChallengeById(challengeId);
+        if (challenge.isGameStatus()){
+
+        }
     }
 }

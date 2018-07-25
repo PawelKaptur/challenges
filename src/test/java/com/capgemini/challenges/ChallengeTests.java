@@ -26,6 +26,7 @@ public class ChallengeTests {
     @After
     public void emptyList(){
         ChallengeDAO.setIdCounter(0);
+        PlayerDAO.setIdCounter(0);
     }
 
     @Test
@@ -173,7 +174,7 @@ public class ChallengeTests {
     }
 
     @Test
-    public void should(){
+    public void shouldBeEqualBecauseTwoPlayersInChallenge(){
         //given
 
         //when
@@ -182,4 +183,18 @@ public class ChallengeTests {
         //then
         assertThat(players.size()).isEqualTo(2);
     }
+
+    @Test
+    public void shouldAssertEqualBecausePlayerOneWon(){
+        //given
+
+        //when
+        challengeService.endOfChallenge(1,1);
+
+        //then
+        assertThat(playerService.findPlayer(1).getScore()).isEqualTo(10);
+        assertThat(playerService.findPlayer(2).getScore()).isEqualTo(0);
+        assertThat(playerService.findPlayer(0).getScore()).isEqualTo(0);
+    }
+
 }

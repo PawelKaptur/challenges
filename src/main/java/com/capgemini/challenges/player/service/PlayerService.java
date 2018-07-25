@@ -16,4 +16,10 @@ public class PlayerService {
     public Player findPlayer(long playerId){
         return playerDAO.findPlayerById(playerId);
     }
+
+    public void addPoints(long playerId, int points){
+        Player player = playerDAO.findPlayerById(playerId);
+        //System.out.println(player);
+        player.setScore(player.getScore() + points);
+    }
 }

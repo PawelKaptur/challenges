@@ -42,4 +42,8 @@ public class PlayerDAO {
 
         return null;
     }
+
+    public static void setIdCounter(long idCounter) {
+        PlayerDAO.idCounter = idCounter;
+    }
 }

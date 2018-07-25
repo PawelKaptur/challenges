@@ -1,9 +1,7 @@
 package com.capgemini.challenges.challenge;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-
 
 public class Challenge {
 
@@ -14,7 +12,6 @@ public class Challenge {
     private long gameId;
     private boolean gameStatus;
     private Date dateOfChallenge;
-
 
     public Challenge(long challengeId, long thrownBy, Map<Long, UserStatus> userDecision, long gameId, boolean gameStatus, Date dateOfChallenge) {
         this.challengeId = challengeId;
