@@ -10,6 +10,8 @@ import com.capgemini.challenges.challengeParticipation.dao.ChallengeParticipatio
 import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
 import com.capgemini.challenges.player.PlayerEntity;
 import com.capgemini.challenges.player.dao.PlayerDAO;
+import com.capgemini.challenges.player.dto.PlayerDTO;
+import com.capgemini.challenges.player.mapper.PlayerMapper;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.junit.After;
 import org.junit.Test;
@@ -27,7 +29,8 @@ public class ChallengeTests {
     ChallengeParticipationDAO challengeParticipationDAO = new ChallengeParticipationDAO();
     ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO);
     ChallengeMapper challengeMapper = new ChallengeMapper();
-    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper);
+    PlayerMapper playerMapper = new PlayerMapper();
+    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper, playerMapper);
 
     @After
     public void emptyList(){
@@ -138,7 +141,7 @@ public class ChallengeTests {
         //given
 
         //when
-        List<ChallengeEntity> systemChallenges = challengeService.showChallengesCreatedBySystem();
+        List<ChallengeDTO> systemChallenges = challengeService.showChallengesCreatedBySystem();
 
         //then
         assertThat(systemChallenges.size()).isEqualTo(2);
@@ -149,10 +152,10 @@ public class ChallengeTests {
         //given
 
         //when
-        List<ChallengeEntity> systemChallenges0 = challengeService.showChallengesThrownBy(0);
-        List<ChallengeEntity> systemChallenges2 = challengeService.showChallengesThrownBy(2);
-        List<ChallengeEntity> systemChallenges3 = challengeService.showChallengesThrownBy(3);
-        List<ChallengeEntity> systemChallenges4 = challengeService.showChallengesThrownBy(4);
+        List<ChallengeDTO> systemChallenges0 = challengeService.showChallengesThrownBy(0);
+        List<ChallengeDTO> systemChallenges2 = challengeService.showChallengesThrownBy(2);
+        List<ChallengeDTO> systemChallenges3 = challengeService.showChallengesThrownBy(3);
+        List<ChallengeDTO> systemChallenges4 = challengeService.showChallengesThrownBy(4);
 
         //then
         assertThat(systemChallenges0.size()).isEqualTo(1);
@@ -166,8 +169,8 @@ public class ChallengeTests {
         //given
 
         //when
-        List<ChallengeEntity> systemChallenges2 = challengeService.showChallengesThrownAt(2);
-        List<ChallengeEntity> systemChallenges3 = challengeService.showChallengesThrownAt(3);
+        List<ChallengeDTO> systemChallenges2 = challengeService.showChallengesThrownAt(2);
+        List<ChallengeDTO> systemChallenges3 = challengeService.showChallengesThrownAt(3);
 
         //then
         assertThat(systemChallenges2.size()).isEqualTo(1);
@@ -179,7 +182,7 @@ public class ChallengeTests {
         //given
 
         //when
-        List<PlayerEntity> players = challengeService.showOpponentsInfoBySelectingChallenge(2);
+        List<PlayerDTO> players = challengeService.showOpponentsInfoBySelectingChallenge(2);
 
         //then
         assertThat(players.size()).isEqualTo(2);

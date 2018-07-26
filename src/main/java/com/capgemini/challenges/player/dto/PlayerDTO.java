@@ -7,18 +7,18 @@ import java.util.List;
 public class PlayerDTO {
 
     private long playerId;
-
     private String username;
     private int score;
-
-    //dodac jeszcze ability time
-
-    //to nie wiem czy dobrze
     private List<GameEntity> listOfOwnedGames;
 
-    public PlayerDTO(String username) {
+    public PlayerDTO(long playerId, String username, int score, List<GameEntity> listOfOwnedGames) {
+        this.playerId = playerId;
         this.username = username;
-        this.score = 0;
+        this.score = score;
+        this.listOfOwnedGames = listOfOwnedGames;
+    }
+
+    public PlayerDTO() {
     }
 
     public long getPlayerId() {

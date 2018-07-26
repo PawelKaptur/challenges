@@ -1,7 +1,5 @@
 package com.capgemini.challenges.challenge.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Date;
 
 public class ChallengeDTO {
@@ -14,7 +12,6 @@ public class ChallengeDTO {
     private Date dateOfChallenge;
     private String invitationMessage;
 
-    @Autowired
     public ChallengeDTO(long challengeId, long thrownBy, long gameId, boolean challengeStatus, Date dateOfChallenge, String invitationMessage) {
         this.challengeId = challengeId;
         this.thrownBy = thrownBy;
@@ -24,7 +21,7 @@ public class ChallengeDTO {
         this.invitationMessage = invitationMessage;
     }
 
-    public ChallengeDTO(){
+    public ChallengeDTO() {
 
     }
 

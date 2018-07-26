@@ -8,15 +8,15 @@ import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
 import com.capgemini.challenges.challengeParticipation.ChallengeParticipationEntity;
 import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
 import com.capgemini.challenges.player.PlayerEntity;
+import com.capgemini.challenges.player.dto.PlayerDTO;
+import com.capgemini.challenges.player.mapper.PlayerMapper;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ChallengeService {
@@ -25,13 +25,18 @@ public class ChallengeService {
     private PlayerService playerService;
     private ChallengeParticipationService challengeParticipationService;
     private ChallengeMapper challengeMapper;
+    private PlayerMapper playerMapper;
 
-    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService, ChallengeParticipationService challengeParticipationService, ChallengeMapper challengeMapper) {
+    @Autowired
+    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService, ChallengeParticipationService challengeParticipationService, ChallengeMapper challengeMapper, PlayerMapper playerMapper) {
         this.challengeDAO = challengeDAO;
         this.playerService = playerService;
         this.challengeParticipationService = challengeParticipationService;
         this.challengeMapper = challengeMapper;
+        this.playerMapper = playerMapper;
     }
+
+
 
     public void createChallenge(long playerId, long gameId, List<Long> playersId, String message) {
         ChallengeEntity challenge = new ChallengeEntity();
@@ -55,22 +60,19 @@ public class ChallengeService {
             }
         }
 
-        //moze w mapperze metoda do przerzucania calej listy
-        List<ChallengeDTO> challengeDTOList = challengeList.stream().map(c -> challengeMapper.convertToDTO(c)).collect(Collectors.toList());
-
-        return challengeDTOList;
+        return challengeMapper.convertListToDTOList(challengeList);
     }
 
-    public List<ChallengeEntity> showChallengesCreatedBySystem() {
+    public List<ChallengeDTO> showChallengesCreatedBySystem() {
         return showChallengesThrownBy(SYSTEM_ID);
     }
 
-    public List<ChallengeEntity> showChallengesThrownBy(long playerId) {
-        return challengeDAO.findChallengesThrownBy(playerId);
+    public List<ChallengeDTO> showChallengesThrownBy(long playerId) {
+        return challengeMapper.convertListToDTOList(challengeDAO.findChallengesThrownBy(playerId));
     }
 
 
-    public List<ChallengeEntity> showChallengesThrownAt(long playerId) {
+    public List<ChallengeDTO> showChallengesThrownAt(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
         List<ChallengeParticipationEntity> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
 
@@ -80,10 +82,10 @@ public class ChallengeService {
             }
         }
 
-        return challengeList;
+        return challengeMapper.convertListToDTOList(challengeList);
     }
 
-    public List<PlayerEntity> showOpponentsInfoBySelectingChallenge(long challengeId) {
+    public List<PlayerDTO> showOpponentsInfoBySelectingChallenge(long challengeId) {
         List<ChallengeParticipationEntity> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
 
         List<Long> playersId = new ArrayList<>();
@@ -100,7 +102,7 @@ public class ChallengeService {
             players.add(player);
         }
 
-        return players;
+        return playerMapper.convertListToDTOList(players);
     }
 
     public void endOfChallenge(long winnerId, long challengeId) {
@@ -108,13 +110,5 @@ public class ChallengeService {
         challenge.setChallengeStatus(true);
         int points = 10;
         playerService.addPoints(winnerId, points);
-    }
-
-    //zapisywanie informacji o zakonczonej grze, dokonczyc
-    public void saveChallenge(long challengeId) {
-        ChallengeEntity challenge = challengeDAO.findChallengeById(challengeId);
-        if (challenge.isChallengeStatus()) {
-
-        }
     }
 }

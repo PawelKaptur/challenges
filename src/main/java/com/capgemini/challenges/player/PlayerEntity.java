@@ -7,11 +7,9 @@ import java.util.List;
 public class PlayerEntity {
 
     private long playerId;
+
     private String username;
     private int score;
-
-    //dodac jeszcze ability time, moze jako osobna klasa
-
     private List<GameEntity> listOfOwnedGames;
 
     public PlayerEntity(long playerId, String username, List<GameEntity> listOfOwnedGames) {

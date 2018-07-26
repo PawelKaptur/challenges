@@ -4,6 +4,9 @@ import com.capgemini.challenges.challenge.ChallengeEntity;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ChallengeMapper {
 
@@ -17,5 +20,9 @@ public class ChallengeMapper {
         challengeDTO.setInvitationMessage(challenge.getInvitationMessage());
 
         return challengeDTO;
+    }
+
+    public List<ChallengeDTO> convertListToDTOList(List<ChallengeEntity> challenges){
+        return challenges.stream().map(c -> convertToDTO(c)).collect(Collectors.toList());
     }
 }

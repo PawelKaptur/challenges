@@ -42,7 +42,7 @@ public class ChallengeParticipationDAO {
         challengeParticipations.add(new ChallengeParticipationEntity(createID(), 0, 0, UserStatus.UNDECIDED, ""));
         challengeParticipations.add(new ChallengeParticipationEntity(createID(), 1, 1, UserStatus.UNDECIDED, ""));
         challengeParticipations.add(new ChallengeParticipationEntity(createID(), 0, 1, UserStatus.UNDECIDED, ""));
-        challengeParticipations.add(new ChallengeParticipationEntity(createID(), 5, 2, UserStatus.UNDECIDED, ""));
+        challengeParticipations.add(new ChallengeParticipationEntity(createID(), 1, 2, UserStatus.UNDECIDED, ""));
     }
 
     public void addChallengeParticipation(ChallengeParticipationEntity challengeParticipation) {
