@@ -7,6 +7,7 @@ import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
 import com.capgemini.challenges.challenge.service.ChallengeService;
+import com.capgemini.challenges.challengeparticipation.UserStatus;
 import com.capgemini.challenges.challengeparticipation.dao.ChallengeParticipationDAO;
 import com.capgemini.challenges.challengeparticipation.mapper.ChallengeParticipationMapper;
 import com.capgemini.challenges.challengeparticipation.service.ChallengeParticipationService;

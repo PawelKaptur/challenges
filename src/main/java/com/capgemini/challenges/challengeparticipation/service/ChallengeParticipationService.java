@@ -1,7 +1,7 @@
 package com.capgemini.challenges.challengeparticipation.service;
 
 
-import com.capgemini.challenges.UserStatus;
+import com.capgemini.challenges.challengeparticipation.UserStatus;
 import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
 import com.capgemini.challenges.challengeparticipation.dao.ChallengeParticipationDAO;
 import com.capgemini.challenges.challengeparticipation.dto.ChallengeParticipationDTO;
@@ -48,7 +48,7 @@ public class ChallengeParticipationService {
     }
 
     /*
-    method that find challenge by challengeId and according to userStatus it choose which method it
+    method that finds challenge by challengeId and according to userStatus it choose which method it
     should use acceptChallenge or declineChallenge
     */
     public void modifyStatus(long challengeParticipationId, UserStatus userStatus, String comment) {

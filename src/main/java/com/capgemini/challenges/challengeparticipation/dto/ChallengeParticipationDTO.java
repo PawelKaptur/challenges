@@ -1,6 +1,6 @@
 package com.capgemini.challenges.challengeparticipation.dto;
 
-import com.capgemini.challenges.UserStatus;
+import com.capgemini.challenges.challengeparticipation.UserStatus;
 
 public class ChallengeParticipationDTO {
     private long challengeParticipationId;

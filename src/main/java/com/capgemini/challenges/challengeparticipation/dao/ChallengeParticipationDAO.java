@@ -1,6 +1,6 @@
 package com.capgemini.challenges.challengeparticipation.dao;
 
-import com.capgemini.challenges.UserStatus;
+import com.capgemini.challenges.challengeparticipation.UserStatus;
 import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,10 +25,7 @@ public class ChallengeParticipationDAO {
     }
 
     public ChallengeParticipationEntity findChallengeParticipationById(long id) {
-        Stream<ChallengeParticipationEntity> stream = challengeParticipations.stream();
-        ChallengeParticipationEntity challengeParticipation = stream.filter(c -> c.getChallengeParticipationId() == id).findFirst().get();
-
-        return challengeParticipation;
+        return challengeParticipations.stream().filter(c -> c.getChallengeParticipationId() == id).findFirst().get();
     }
 
     private void addChallengesParticipation() {
@@ -51,23 +48,16 @@ public class ChallengeParticipationDAO {
         challengeParticipations.add(challengeParticipation);
     }
 
-    public List<ChallengeParticipationEntity> findAllChallengeParticipations() {
-        return challengeParticipations;
-    }
-
     public List<ChallengeParticipationEntity> findAllChallengeParticipationsByPlayer(long playerId){
-        List<ChallengeParticipationEntity> participations = findAllChallengeParticipations();
-        return participations.stream().filter(c -> c.getUserId() == playerId).collect(Collectors.toList());
+        return challengeParticipations.stream().filter(c -> c.getUserId() == playerId).collect(Collectors.toList());
     }
 
     public List<ChallengeParticipationEntity> findAllChallengesAcceptedByPlayer(long playerId){
-        List<ChallengeParticipationEntity> participations = findAllChallengeParticipationsByPlayer(playerId);
-        return participations.stream().filter(c -> c.getUserStatus().equals(UserStatus.ACCEPTED)).collect(Collectors.toList());
+        return findAllChallengeParticipationsByPlayer(playerId).stream().filter(c -> c.getUserStatus().equals(UserStatus.ACCEPTED)).collect(Collectors.toList());
     }
 
     public List<ChallengeParticipationEntity> findChallengeParticipationsByChallenge(long challengeId){
-        List<ChallengeParticipationEntity> participations = findAllChallengeParticipations();
-        return participations.stream().filter(c -> c.getChallengeId() == challengeId).collect(Collectors.toList());
+        return challengeParticipations.stream().filter(c -> c.getChallengeId() == challengeId).collect(Collectors.toList());
     }
 
     public List<Long> findOpponentsInChallenge(long challengeId){

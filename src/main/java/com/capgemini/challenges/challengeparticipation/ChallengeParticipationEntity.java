@@ -1,7 +1,5 @@
 package com.capgemini.challenges.challengeparticipation;
 
-import com.capgemini.challenges.UserStatus;
-
 public class ChallengeParticipationEntity {
 
     private long challengeParticipationId;

@@ -1,4 +1,4 @@
-package com.capgemini.challenges;
+package com.capgemini.challenges.challengeparticipation;
 
 public enum UserStatus {
     ACCEPTED,
