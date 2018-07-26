@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class PlayerService {
@@ -38,35 +36,17 @@ public class PlayerService {
     }
 
     public List<PlayerDTO> searchPlayerByUsername(String username) {
-        //powinienem do dao przeniesc
-        List<PlayerEntity> players = playerDAO.findAllPlayers();
-
-        Stream<PlayerEntity> stream = players.stream();
-        List<PlayerEntity> foundPlayers = stream.filter(p -> p.getUsername().equals(username)).collect(Collectors.toList());
-
-        return playerMapper.convertListToDTOList(foundPlayers);
+        return playerMapper.convertListToDTOList(playerDAO.findPlayersByUsername(username));
     }
 
     public List<PlayerDTO> searchPlayerByOwnedGames(String gameName) {
-        //to chyba zmodyfikowac
-        List<PlayerEntity> players = playerDAO.findAllPlayers();
-        List<PlayerEntity> foundPlayers = new ArrayList<>();
-        for (PlayerEntity player : players) {
-            for (int i = 0; i < player.getListOfOwnedGames().size(); i++) {
-                if (player.getListOfOwnedGames().get(i).getName().equals(gameName)) {
-                    foundPlayers.add(player);
-                }
-            }
-        }
-
-        return playerMapper.convertListToDTOList(foundPlayers);
+        return playerMapper.convertListToDTOList(playerDAO.findPlayersByOwnedGames(gameName));
     }
 
-    public List<PlayerDTO> searchPlayerByAbilityTime(AbilityTimeEntity abilityTime){
-
+    public List<PlayerDTO> searchPlayerByAbilityTime(AbilityTimeEntity abilityTime) {
         List<Long> playersId = abilityTimeService.findPlayersIdByAbilityTime(abilityTime);
         List<PlayerEntity> foundPlayers = new ArrayList<>();
-        for (Long playerId: playersId){
+        for (Long playerId : playersId) {
             foundPlayers.add(playerDAO.findPlayerById(playerId));
         }
 

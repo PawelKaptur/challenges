@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PlayerDAO {
@@ -41,15 +42,24 @@ public class PlayerDAO {
     }
 
     public PlayerEntity findPlayerById(long playerId) {
+        return players.stream().filter(p -> p.getPlayerId() == playerId).findFirst().get();
+    }
 
-        // pryerobic na foreach
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getPlayerId() == playerId) {
-                return players.get(i);
+    public List<PlayerEntity> findPlayersByUsername(String username) {
+        return  players.stream().filter(p -> p.getUsername().equals(username)).collect(Collectors.toList());
+    }
+
+    public List<PlayerEntity> findPlayersByOwnedGames(String gameName) {
+        List<PlayerEntity> foundPlayers = new ArrayList<>();
+        for (PlayerEntity player : players) {
+            for (GameEntity game: player.getListOfOwnedGames()){
+                if(game.getName().equals(gameName)){
+                    foundPlayers.add(player);
+                }
             }
         }
 
-        return null;
+        return foundPlayers;
     }
 
     public static void setIdCounter(long idCounter) {
