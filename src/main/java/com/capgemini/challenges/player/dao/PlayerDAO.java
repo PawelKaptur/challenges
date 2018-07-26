@@ -37,23 +37,19 @@ public class PlayerDAO {
         return idCounter++;
     }
 
-    public List<PlayerEntity> findAllPlayers() {
-        return players;
-    }
-
     public PlayerEntity findPlayerById(long playerId) {
         return players.stream().filter(p -> p.getPlayerId() == playerId).findFirst().get();
     }
 
     public List<PlayerEntity> findPlayersByUsername(String username) {
-        return  players.stream().filter(p -> p.getUsername().equals(username)).collect(Collectors.toList());
+        return players.stream().filter(p -> p.getUsername().equals(username)).collect(Collectors.toList());
     }
 
     public List<PlayerEntity> findPlayersByOwnedGames(String gameName) {
         List<PlayerEntity> foundPlayers = new ArrayList<>();
         for (PlayerEntity player : players) {
-            for (GameEntity game: player.getListOfOwnedGames()){
-                if(game.getName().equals(gameName)){
+            for (GameEntity game : player.getListOfOwnedGames()) {
+                if (game.getName().equals(gameName)) {
                     foundPlayers.add(player);
                 }
             }

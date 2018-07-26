@@ -1,8 +1,8 @@
 package com.capgemini.challenges.challengeparticipation.service;
 
 
-import com.capgemini.challenges.challengeparticipation.UserStatus;
 import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
+import com.capgemini.challenges.challengeparticipation.UserStatus;
 import com.capgemini.challenges.challengeparticipation.dao.ChallengeParticipationDAO;
 import com.capgemini.challenges.challengeparticipation.dto.ChallengeParticipationDTO;
 import com.capgemini.challenges.challengeparticipation.mapper.ChallengeParticipationMapper;
@@ -32,7 +32,7 @@ public class ChallengeParticipationService {
     }
 
     public void createChallengeParticipations(long challengeId, List<Long> playersId) {
-        for (Long playerId: playersId) {
+        for (Long playerId : playersId) {
             createChallengeParticipation(challengeId, playerId);
         }
     }
@@ -61,15 +61,15 @@ public class ChallengeParticipationService {
         }
     }
 
-    public List<ChallengeParticipationDTO> findAllChallengesByPlayer(long playerId){
+    public List<ChallengeParticipationDTO> findAllChallengesByPlayer(long playerId) {
         return mapper.convertListToDTOList(challengeParticipationDAO.findAllChallengeParticipationsByPlayer(playerId));
     }
 
-    public List<ChallengeParticipationDTO> findAllChallengesAcceptedByPlayer(long playerId){
+    public List<ChallengeParticipationDTO> findAllChallengesAcceptedByPlayer(long playerId) {
         return mapper.convertListToDTOList(challengeParticipationDAO.findAllChallengesAcceptedByPlayer(playerId));
     }
 
-    public List<Long> findOpponentsInChallenge(long challengeId){
+    public List<Long> findOpponentsInChallenge(long challengeId) {
         return challengeParticipationDAO.findOpponentsInChallenge(challengeId);
     }
 }

@@ -18,9 +18,9 @@ public class GameDAO {
     private void addGames() {
         listOfGames.add(new GameEntity(createID(), "Chess"));
         listOfGames.add(new GameEntity(createID(), "Gloomhaven"));
-        listOfGames.add(new GameEntity(createID(),"Runewars"));
-        listOfGames.add(new GameEntity(createID(),"Bang"));
-        listOfGames.add(new GameEntity(createID(),"Avalon"));
+        listOfGames.add(new GameEntity(createID(), "Runewars"));
+        listOfGames.add(new GameEntity(createID(), "Bang"));
+        listOfGames.add(new GameEntity(createID(), "Avalon"));
     }
 
     public List<GameEntity> getListOfGames() {

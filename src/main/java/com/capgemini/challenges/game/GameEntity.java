@@ -12,6 +12,10 @@ public class GameEntity {
         this.name = name;
     }
 
+    public GameEntity(String name) {
+        this.name = name;
+    }
+
     public long getGameId() {
         return gameId;
     }

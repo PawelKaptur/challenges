@@ -1,14 +1,13 @@
 package com.capgemini.challenges.challengeparticipation.dao;
 
-import com.capgemini.challenges.challengeparticipation.UserStatus;
 import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
+import com.capgemini.challenges.challengeparticipation.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository
 public class ChallengeParticipationDAO {
@@ -48,19 +47,19 @@ public class ChallengeParticipationDAO {
         challengeParticipations.add(challengeParticipation);
     }
 
-    public List<ChallengeParticipationEntity> findAllChallengeParticipationsByPlayer(long playerId){
+    public List<ChallengeParticipationEntity> findAllChallengeParticipationsByPlayer(long playerId) {
         return challengeParticipations.stream().filter(c -> c.getUserId() == playerId).collect(Collectors.toList());
     }
 
-    public List<ChallengeParticipationEntity> findAllChallengesAcceptedByPlayer(long playerId){
+    public List<ChallengeParticipationEntity> findAllChallengesAcceptedByPlayer(long playerId) {
         return findAllChallengeParticipationsByPlayer(playerId).stream().filter(c -> c.getUserStatus().equals(UserStatus.ACCEPTED)).collect(Collectors.toList());
     }
 
-    public List<ChallengeParticipationEntity> findChallengeParticipationsByChallenge(long challengeId){
+    public List<ChallengeParticipationEntity> findChallengeParticipationsByChallenge(long challengeId) {
         return challengeParticipations.stream().filter(c -> c.getChallengeId() == challengeId).collect(Collectors.toList());
     }
 
-    public List<Long> findOpponentsInChallenge(long challengeId){
+    public List<Long> findOpponentsInChallenge(long challengeId) {
         return findChallengeParticipationsByChallenge(challengeId).stream().map(c -> c.getUserId()).collect(Collectors.toList());
     }
 

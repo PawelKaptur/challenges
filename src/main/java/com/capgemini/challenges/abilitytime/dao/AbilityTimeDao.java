@@ -38,7 +38,7 @@ public class AbilityTimeDao {
         return abilityTimes.stream().filter(a -> a.getDayOfWeek().equals(abilityTime.getDayOfWeek()) && a.getTimeOfDay().equals(abilityTime.getTimeOfDay())).collect(Collectors.toList());
     }
 
-    public List<Long> findPlayersIdByAbilityTime(AbilityTimeEntity abilityTime){
+    public List<Long> findPlayersIdByAbilityTime(AbilityTimeEntity abilityTime) {
         return findAbilityTime(abilityTime).stream().map(a -> a.getPlayerId()).collect(Collectors.toList());
     }
 }

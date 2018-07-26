@@ -208,5 +208,4 @@ public class ChallengeTests {
         assertThat(challengeDAO.findChallengeById(1).isGameIsEnd()).isTrue();
         assertThat(challengeDAO.findChallengeById(0).isGameIsEnd()).isFalse();
     }
-
 }
