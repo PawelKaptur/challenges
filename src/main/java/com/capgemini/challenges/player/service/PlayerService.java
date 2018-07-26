@@ -23,7 +23,7 @@ public class PlayerService {
         this.playerDAO = playerDAO;
         this.playerMapper = playerMapper;
     }
-    
+
     public PlayerDTO findPlayer(long playerId) {
         return playerMapper.convertToDTO(playerDAO.findPlayerById(playerId));
     }

@@ -7,8 +7,8 @@ import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
 import com.capgemini.challenges.challenge.service.ChallengeService;
 import com.capgemini.challenges.challengeParticipation.dao.ChallengeParticipationDAO;
+import com.capgemini.challenges.challengeParticipation.mapper.ChallengeParticipationMapper;
 import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
-import com.capgemini.challenges.player.PlayerEntity;
 import com.capgemini.challenges.player.dao.PlayerDAO;
 import com.capgemini.challenges.player.dto.PlayerDTO;
 import com.capgemini.challenges.player.mapper.PlayerMapper;
@@ -28,7 +28,8 @@ public class ChallengeTests {
     PlayerMapper playerMapper = new PlayerMapper();
     PlayerService playerService = new PlayerService(playerDAO, playerMapper);
     ChallengeParticipationDAO challengeParticipationDAO = new ChallengeParticipationDAO();
-    ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO);
+    ChallengeParticipationMapper challengeParticipationMapper = new ChallengeParticipationMapper();
+    ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO, challengeParticipationMapper);
     ChallengeMapper challengeMapper = new ChallengeMapper();
     ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper, playerMapper);
 

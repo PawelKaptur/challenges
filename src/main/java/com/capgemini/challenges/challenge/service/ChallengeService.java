@@ -5,9 +5,8 @@ import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
-import com.capgemini.challenges.challengeParticipation.ChallengeParticipationEntity;
+import com.capgemini.challenges.challengeParticipation.dto.ChallengeParticipationDTO;
 import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
-import com.capgemini.challenges.player.PlayerEntity;
 import com.capgemini.challenges.player.dto.PlayerDTO;
 import com.capgemini.challenges.player.mapper.PlayerMapper;
 import com.capgemini.challenges.player.service.PlayerService;
@@ -50,9 +49,9 @@ public class ChallengeService {
 
     public List<ChallengeDTO> showAcceptedChallenges(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
-        List<ChallengeParticipationEntity> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
+        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
 
-        for (ChallengeParticipationEntity participation : challengeParticipationList) {
+        for (ChallengeParticipationDTO participation : challengeParticipationList) {
             if (participation.getUserId() == playerId && participation.getUserStatus().equals(UserStatus.ACCEPTED)) {
                 challengeList.add(challengeDAO.findChallengeById(participation.getChallengeId()));
             }
@@ -68,13 +67,12 @@ public class ChallengeService {
     public List<ChallengeDTO> showChallengesThrownBy(long playerId) {
         return challengeMapper.convertListToDTOList(challengeDAO.findChallengesThrownBy(playerId));
     }
-
-
+    
     public List<ChallengeDTO> showChallengesThrownAt(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
-        List<ChallengeParticipationEntity> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
+        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
 
-        for (ChallengeParticipationEntity participation : challengeParticipationList) {
+        for (ChallengeParticipationDTO participation : challengeParticipationList) {
             if (participation.getUserId() == playerId && challengeDAO.findChallengeById(participation.getChallengeId()).getThrownBy() != playerId) {
                 challengeList.add(challengeDAO.findChallengeById(participation.getChallengeId()));
             }
@@ -84,10 +82,10 @@ public class ChallengeService {
     }
 
     public List<PlayerDTO> showOpponentsInfoBySelectingChallenge(long challengeId) {
-        List<ChallengeParticipationEntity> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
+        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
 
         List<Long> playersId = new ArrayList<>();
-        for (ChallengeParticipationEntity participation : challengeParticipationList) {
+        for (ChallengeParticipationDTO participation : challengeParticipationList) {
             if (participation.getChallengeId() == challengeId) {
                 playersId.add(participation.getUserId());
             }
