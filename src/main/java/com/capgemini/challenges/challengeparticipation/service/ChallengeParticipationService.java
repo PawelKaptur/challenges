@@ -1,7 +1,7 @@
 package com.capgemini.challenges.challengeparticipation.service;
 
 
-import com.capgemini.challenges.challenge.UserStatus;
+import com.capgemini.challenges.UserStatus;
 import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
 import com.capgemini.challenges.challengeparticipation.dao.ChallengeParticipationDAO;
 import com.capgemini.challenges.challengeparticipation.dto.ChallengeParticipationDTO;
@@ -32,8 +32,8 @@ public class ChallengeParticipationService {
     }
 
     public void createChallengeParticipations(long challengeId, List<Long> playersId) {
-        for (int i = 0; i < playersId.size(); i++) {
-            createChallengeParticipation(challengeId, playersId.get(i));
+        for (Long playerId: playersId) {
+            createChallengeParticipation(challengeId, playerId);
         }
     }
 

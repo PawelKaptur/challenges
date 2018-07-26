@@ -1,6 +1,6 @@
 package com.capgemini.challenges.challengeparticipation.dao;
 
-import com.capgemini.challenges.challenge.UserStatus;
+import com.capgemini.challenges.UserStatus;
 import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

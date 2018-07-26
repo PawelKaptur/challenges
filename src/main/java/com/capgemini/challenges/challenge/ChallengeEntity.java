@@ -8,15 +8,15 @@ public class ChallengeEntity {
 
     private long thrownBy;
     private long gameId;
-    private boolean challengeStatus;
+    private boolean isGameIsEnd;
     private Date dateOfChallenge;
     private String invitationMessage;
 
-    public ChallengeEntity(long challengeId, long thrownBy, long gameId, boolean challengeStatus, Date dateOfChallenge, String invitationMessage) {
+    public ChallengeEntity(long challengeId, long thrownBy, long gameId, boolean isGameIsEnd, Date dateOfChallenge, String invitationMessage) {
         this.challengeId = challengeId;
         this.thrownBy = thrownBy;
         this.gameId = gameId;
-        this.challengeStatus = challengeStatus;
+        this.isGameIsEnd = isGameIsEnd;
         this.dateOfChallenge = dateOfChallenge;
         this.invitationMessage = invitationMessage;
     }
@@ -40,12 +40,12 @@ public class ChallengeEntity {
         return challengeId;
     }
 
-    public boolean isChallengeStatus() {
-        return challengeStatus;
+    public boolean isGameIsEnd() {
+        return isGameIsEnd;
     }
 
-    public void setChallengeStatus(boolean challengeStatus) {
-        this.challengeStatus = challengeStatus;
+    public void setGameIsEnd(boolean gameIsEnd) {
+        this.isGameIsEnd = gameIsEnd;
     }
 
     public String getInvitationMessage() {

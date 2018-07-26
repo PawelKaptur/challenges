@@ -1,6 +1,6 @@
 package com.capgemini.challenges.challengeparticipation;
 
-import com.capgemini.challenges.challenge.UserStatus;
+import com.capgemini.challenges.UserStatus;
 
 public class ChallengeParticipationEntity {
 

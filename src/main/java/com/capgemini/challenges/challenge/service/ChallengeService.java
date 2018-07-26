@@ -37,7 +37,7 @@ public class ChallengeService {
         challenge.setGameId(gameId);
         challenge.setDateOfChallenge(new Date());
         challenge.setInvitationMessage(message);
-        challenge.setChallengeStatus(false);
+        challenge.setGameIsEnd(false);
 
         challengeDAO.addChallenge(challenge);
         challengeParticipationService.createChallengeParticipations(challenge.getChallengeId(), playersId);
@@ -90,7 +90,7 @@ public class ChallengeService {
 
     public void endOfChallenge(long winnerId, long challengeId) {
         ChallengeEntity challenge = challengeDAO.findChallengeById(challengeId);
-        challenge.setChallengeStatus(true);
+        challenge.setGameIsEnd(true);
         int points = 10;
         playerService.addPoints(winnerId, points);
     }

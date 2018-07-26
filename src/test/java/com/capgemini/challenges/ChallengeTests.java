@@ -1,7 +1,6 @@
 package com.capgemini.challenges;
 
 import com.capgemini.challenges.challenge.ChallengeEntity;
-import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
@@ -201,8 +200,8 @@ public class ChallengeTests {
         assertThat(playerService.findPlayer(2).getScore()).isEqualTo(0);
         assertThat(playerService.findPlayer(0).getScore()).isEqualTo(0);
         assertThat(playerService.findPlayer(4).getScore()).isEqualTo(0);
-        assertThat(challengeDAO.findChallengeById(1).isChallengeStatus()).isTrue();
-        assertThat(challengeDAO.findChallengeById(0).isChallengeStatus()).isFalse();
+        assertThat(challengeDAO.findChallengeById(1).isGameIsEnd()).isTrue();
+        assertThat(challengeDAO.findChallengeById(0).isGameIsEnd()).isFalse();
     }
 
 }
