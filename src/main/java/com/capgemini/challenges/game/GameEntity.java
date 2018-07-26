@@ -1,13 +1,13 @@
 package com.capgemini.challenges.game;
 
 
-public class Game {
+public class GameEntity {
 
     private long gameId;
 
     private String name;
 
-    public Game(String name) {
+    public GameEntity(String name) {
         this.name = name;
     }
 

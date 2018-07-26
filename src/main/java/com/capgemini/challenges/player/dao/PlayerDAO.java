@@ -1,8 +1,8 @@
 package com.capgemini.challenges.player.dao;
 
-import com.capgemini.challenges.game.Game;
+import com.capgemini.challenges.game.GameEntity;
 import com.capgemini.challenges.game.dao.GameDAO;
-import com.capgemini.challenges.player.Player;
+import com.capgemini.challenges.player.PlayerEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 public class PlayerDAO {
 
     private static long idCounter = 0;
-    private List<Player> players = new ArrayList<>();
+    private List<PlayerEntity> players = new ArrayList<>();
     private GameDAO gameDAO = new GameDAO();
 
     public PlayerDAO() {
@@ -20,27 +20,27 @@ public class PlayerDAO {
     }
 
     private void addPlayers() {
-        List<Game> listOfGames = gameDAO.getListOfGames().subList(0, 2);
-        List<Game> listOfGames2 = gameDAO.getListOfGames().subList(1, 2);
-        List<Game> listOfGames3 = gameDAO.getListOfGames().subList(3, 4);
-        List<Game> listOfGames4 = gameDAO.getListOfGames();
-        List<Game> listOfGames5 = gameDAO.getListOfGames().subList(1, 3);
-        players.add(new Player(createID(), "koxik1993", listOfGames));
-        players.add(new Player(createID(), "eminiem", listOfGames2));
-        players.add(new Player(createID(), "rutowicz", listOfGames3));
-        players.add(new Player(createID(), "tede", listOfGames4));
-        players.add(new Player(createID(), "peja", listOfGames5));
+        List<GameEntity> listOfGames = gameDAO.getListOfGames().subList(0, 2);
+        List<GameEntity> listOfGames2 = gameDAO.getListOfGames().subList(1, 2);
+        List<GameEntity> listOfGames3 = gameDAO.getListOfGames().subList(3, 4);
+        List<GameEntity> listOfGames4 = gameDAO.getListOfGames();
+        List<GameEntity> listOfGames5 = gameDAO.getListOfGames().subList(1, 3);
+        players.add(new PlayerEntity(createID(), "koxik1993", listOfGames));
+        players.add(new PlayerEntity(createID(), "eminiem", listOfGames2));
+        players.add(new PlayerEntity(createID(), "rutowicz", listOfGames3));
+        players.add(new PlayerEntity(createID(), "tede", listOfGames4));
+        players.add(new PlayerEntity(createID(), "peja", listOfGames5));
     }
 
     private static long createID() {
         return idCounter++;
     }
 
-    public List<Player> findAllPlayers() {
+    public List<PlayerEntity> findAllPlayers() {
         return players;
     }
 
-    public Player findPlayerById(long playerId) {
+    public PlayerEntity findPlayerById(long playerId) {
 
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getPlayerId() == playerId) {

@@ -1,6 +1,6 @@
 package com.capgemini.challenges.player.dto;
 
-import com.capgemini.challenges.game.Game;
+import com.capgemini.challenges.game.GameEntity;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class PlayerDTO {
     //dodac jeszcze ability time
 
     //to nie wiem czy dobrze
-    private List<Game> listOfOwnedGames;
+    private List<GameEntity> listOfOwnedGames;
 
     public PlayerDTO(String username) {
         this.username = username;
@@ -45,11 +45,11 @@ public class PlayerDTO {
         this.score = score;
     }
 
-    public List<Game> getListOfOwnedGames() {
+    public List<GameEntity> getListOfOwnedGames() {
         return listOfOwnedGames;
     }
 
-    public void setListOfOwnedGames(List<Game> listOfOwnedGames) {
+    public void setListOfOwnedGames(List<GameEntity> listOfOwnedGames) {
         this.listOfOwnedGames = listOfOwnedGames;
     }
 }

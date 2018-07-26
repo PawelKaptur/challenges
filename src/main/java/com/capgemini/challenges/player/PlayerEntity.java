@@ -1,10 +1,10 @@
 package com.capgemini.challenges.player;
 
-import com.capgemini.challenges.game.Game;
+import com.capgemini.challenges.game.GameEntity;
 
 import java.util.List;
 
-public class Player {
+public class PlayerEntity {
 
     private long playerId;
     private String username;
@@ -12,9 +12,9 @@ public class Player {
 
     //dodac jeszcze ability time, moze jako osobna klasa
 
-    private List<Game> listOfOwnedGames;
+    private List<GameEntity> listOfOwnedGames;
 
-    public Player(long playerId, String username, List<Game> listOfOwnedGames) {
+    public PlayerEntity(long playerId, String username, List<GameEntity> listOfOwnedGames) {
         this.playerId = playerId;
         this.username = username;
         this.score = 0;
@@ -45,11 +45,11 @@ public class Player {
         this.score = score;
     }
 
-    public List<Game> getListOfOwnedGames() {
+    public List<GameEntity> getListOfOwnedGames() {
         return listOfOwnedGames;
     }
 
-    public void setListOfOwnedGames(List<Game> listOfOwnedGames) {
+    public void setListOfOwnedGames(List<GameEntity> listOfOwnedGames) {
         this.listOfOwnedGames = listOfOwnedGames;
     }
 }

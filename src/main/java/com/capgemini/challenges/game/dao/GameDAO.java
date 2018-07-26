@@ -1,6 +1,6 @@
 package com.capgemini.challenges.game.dao;
 
-import com.capgemini.challenges.game.Game;
+import com.capgemini.challenges.game.GameEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,27 +9,27 @@ import java.util.stream.Stream;
 
 @Repository
 public class GameDAO {
-    private List<Game> listOfGames = new ArrayList<>();
+    private List<GameEntity> listOfGames = new ArrayList<>();
 
     public GameDAO() {
         addGames();
     }
 
     private void addGames(){
-        listOfGames.add(new Game("Chess"));
-        listOfGames.add(new Game("Gloomhaven"));
-        listOfGames.add(new Game("Runewars"));
-        listOfGames.add(new Game("Bang"));
-        listOfGames.add(new Game("Avalon"));
+        listOfGames.add(new GameEntity("Chess"));
+        listOfGames.add(new GameEntity("Gloomhaven"));
+        listOfGames.add(new GameEntity("Runewars"));
+        listOfGames.add(new GameEntity("Bang"));
+        listOfGames.add(new GameEntity("Avalon"));
     }
 
-    public List<Game> getListOfGames() {
+    public List<GameEntity> getListOfGames() {
         return listOfGames;
     }
 
-    public Game findGameByName(String gameName){
-        Stream<Game> stream = listOfGames.stream();
-        Game game = stream.filter(g -> g.getName().equals(gameName)).findFirst().get();
+    public GameEntity findGameByName(String gameName){
+        Stream<GameEntity> stream = listOfGames.stream();
+        GameEntity game = stream.filter(g -> g.getName().equals(gameName)).findFirst().get();
         return game;
     }
 }

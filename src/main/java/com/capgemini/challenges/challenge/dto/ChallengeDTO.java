@@ -1,46 +1,47 @@
 package com.capgemini.challenges.challenge.dto;
 
-import com.capgemini.challenges.challenge.UserStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
-import java.util.List;
 
 public class ChallengeDTO {
 
     private long challengeId;
 
-    private List<Long> playersId;
+    private long thrownBy;
     private long gameId;
-    private List<UserStatus> statusesOfPlayers;
-    private boolean gameStatus;
+    private boolean challengeStatus;
     private Date dateOfChallenge;
+    private String invitationMessage;
 
-    public ChallengeDTO(long challengeId, List<Long> playersId, long gameId, List<UserStatus> statusesOfPlayers, boolean gameStatus, Date dateOfChallenge) {
+    @Autowired
+    public ChallengeDTO(long challengeId, long thrownBy, long gameId, boolean challengeStatus, Date dateOfChallenge, String invitationMessage) {
         this.challengeId = challengeId;
-        this.playersId = playersId;
+        this.thrownBy = thrownBy;
         this.gameId = gameId;
-        this.statusesOfPlayers = statusesOfPlayers;
-        this.gameStatus = gameStatus;
+        this.challengeStatus = challengeStatus;
         this.dateOfChallenge = dateOfChallenge;
+        this.invitationMessage = invitationMessage;
     }
 
-    public ChallengeDTO() {
-    }
+    public ChallengeDTO(){
 
-    public void setChallengeId(long challengeId) {
-        this.challengeId = challengeId;
     }
 
     public long getChallengeId() {
         return challengeId;
     }
 
-    public List<Long> getPlayersId() {
-        return playersId;
+    public void setChallengeId(long challengeId) {
+        this.challengeId = challengeId;
     }
 
-    public void setPlayersId(List<Long> playersId) {
-        this.playersId = playersId;
+    public long getThrownBy() {
+        return thrownBy;
+    }
+
+    public void setThrownBy(long thrownBy) {
+        this.thrownBy = thrownBy;
     }
 
     public long getGameId() {
@@ -51,20 +52,12 @@ public class ChallengeDTO {
         this.gameId = gameId;
     }
 
-    public List<UserStatus> getStatusesOfPlayers() {
-        return statusesOfPlayers;
+    public boolean isChallengeStatus() {
+        return challengeStatus;
     }
 
-    public void setStatusesOfPlayers(List<UserStatus> statusesOfPlayers) {
-        this.statusesOfPlayers = statusesOfPlayers;
-    }
-
-    public boolean isGameStatus() {
-        return gameStatus;
-    }
-
-    public void setGameStatus(boolean gameStatus) {
-        this.gameStatus = gameStatus;
+    public void setChallengeStatus(boolean challengeStatus) {
+        this.challengeStatus = challengeStatus;
     }
 
     public Date getDateOfChallenge() {
@@ -73,5 +66,13 @@ public class ChallengeDTO {
 
     public void setDateOfChallenge(Date dateOfChallenge) {
         this.dateOfChallenge = dateOfChallenge;
+    }
+
+    public String getInvitationMessage() {
+        return invitationMessage;
+    }
+
+    public void setInvitationMessage(String invitationMessage) {
+        this.invitationMessage = invitationMessage;
     }
 }

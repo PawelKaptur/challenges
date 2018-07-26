@@ -3,11 +3,13 @@ package com.capgemini.challenges.challengeParticipation.dao;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challengeParticipation.ChallengeParticipationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Repository
 public class ChallengeParticipationDAO {
     private static long idCounter = 0;
     private List<ChallengeParticipationEntity> challengeParticipations = new ArrayList<>();

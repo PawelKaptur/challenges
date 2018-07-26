@@ -3,12 +3,12 @@ package com.capgemini.challenges;
 import com.capgemini.challenges.challenge.ChallengeEntity;
 import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
+import com.capgemini.challenges.challenge.dto.ChallengeDTO;
+import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
 import com.capgemini.challenges.challenge.service.ChallengeService;
 import com.capgemini.challenges.challengeParticipation.dao.ChallengeParticipationDAO;
 import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
-import com.capgemini.challenges.game.dao.GameDAO;
-import com.capgemini.challenges.game.service.GameService;
-import com.capgemini.challenges.player.Player;
+import com.capgemini.challenges.player.PlayerEntity;
 import com.capgemini.challenges.player.dao.PlayerDAO;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.junit.After;
@@ -22,13 +22,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ChallengeTests {
 
     ChallengeDAO challengeDAO = new ChallengeDAO();
-    GameDAO gameDAO = new GameDAO();
     PlayerDAO playerDAO = new PlayerDAO();
-    GameService gameService = new GameService(gameDAO);
-    PlayerService playerService = new PlayerService(playerDAO, gameService);
+    PlayerService playerService = new PlayerService(playerDAO);
     ChallengeParticipationDAO challengeParticipationDAO = new ChallengeParticipationDAO();
     ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO);
-    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService);
+    ChallengeMapper challengeMapper = new ChallengeMapper();
+    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper);
 
     @After
     public void emptyList(){
@@ -128,7 +127,7 @@ public class ChallengeTests {
 
         //when
         challengeParticipationService.modifyStatus(2L,UserStatus.ACCEPTED,  comment);
-        List<ChallengeEntity> challenges = challengeService.showAcceptedChallenges(0);
+        List<ChallengeDTO> challenges = challengeService.showAcceptedChallenges(0);
 
         //then
         assertThat(challenges.size()).isEqualTo(1);
@@ -180,7 +179,7 @@ public class ChallengeTests {
         //given
 
         //when
-        List<Player> players = challengeService.showOpponentsInfoBySelectingChallenge(2);
+        List<PlayerEntity> players = challengeService.showOpponentsInfoBySelectingChallenge(2);
 
         //then
         assertThat(players.size()).isEqualTo(2);
