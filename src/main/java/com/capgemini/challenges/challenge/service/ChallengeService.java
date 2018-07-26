@@ -43,6 +43,11 @@ public class ChallengeService {
         challengeParticipationService.createChallengeParticipations(challenge.getChallengeId(), playersId);
     }
 
+    /*
+     method is showing challenges which were accepted by specific player
+     first it search for all participations where player set accepted status
+     and then with challenge ids from participations it's returning proper challenges
+    */
     public List<ChallengeDTO> showAcceptedChallenges(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
         List<ChallengeParticipationDTO> acceptedParticipations = challengeParticipationService.findAllChallengesAcceptedByPlayer(playerId);
@@ -62,6 +67,12 @@ public class ChallengeService {
         return challengeMapper.convertListToDTOList(challengeDAO.findChallengesThrownBy(playerId));
     }
 
+    /*
+     method is showing challenges which were thrown at specific player
+     first it search for all participations with player id
+     and then with challenge ids from participations it's returning proper challenges
+     without challenges created by this player
+    */
     public List<ChallengeDTO> showChallengesThrownAt(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
         List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengesByPlayer(playerId);
@@ -75,6 +86,10 @@ public class ChallengeService {
         return challengeMapper.convertListToDTOList(challengeList);
     }
 
+    /*
+    first method finds all players which are participating in specific challenge
+    and save ids of them in list, then it find those players by ids and returns list of them
+    */
     public List<PlayerDTO> showOpponentsInfoBySelectingChallenge(long challengeId) {
         List<Long> playersId = challengeParticipationService.findOpponentsInChallenge(challengeId);
 

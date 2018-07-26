@@ -47,6 +47,10 @@ public class ChallengeParticipationService {
         challengeParticipation.setComment(comment);
     }
 
+    /*
+    method that find challenge by challengeId and according to userStatus it choose which method it
+    should use acceptChallenge or declineChallenge
+    */
     public void modifyStatus(long challengeParticipationId, UserStatus userStatus, String comment) {
         ChallengeParticipationEntity challengeParticipation = challengeParticipationDAO.findChallengeParticipationById(challengeParticipationId);
 
