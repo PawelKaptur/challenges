@@ -48,6 +48,7 @@ public class ChallengeDAO {
     }
 
     public ChallengeEntity findChallengeById(long id) {
+        //tu tez pryerobic
         Stream<ChallengeEntity> stream = challenges.stream();
         ChallengeEntity challenge = stream.filter(c -> c.getChallengeId() == id).findFirst().get();
 

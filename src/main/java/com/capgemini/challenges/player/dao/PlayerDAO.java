@@ -42,6 +42,7 @@ public class PlayerDAO {
 
     public PlayerEntity findPlayerById(long playerId) {
 
+        // pryerobic na foreach
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getPlayerId() == playerId) {
                 return players.get(i);

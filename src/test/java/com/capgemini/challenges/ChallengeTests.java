@@ -1,5 +1,7 @@
 package com.capgemini.challenges;
 
+import com.capgemini.challenges.abilitytime.dao.AbilityTimeDao;
+import com.capgemini.challenges.abilitytime.service.AbilityTimeService;
 import com.capgemini.challenges.challenge.ChallengeEntity;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
@@ -25,7 +27,9 @@ public class ChallengeTests {
     ChallengeDAO challengeDAO = new ChallengeDAO();
     PlayerDAO playerDAO = new PlayerDAO();
     PlayerMapper playerMapper = new PlayerMapper();
-    PlayerService playerService = new PlayerService(playerDAO, playerMapper);
+    AbilityTimeDao abilityTimeDao = new AbilityTimeDao();
+    AbilityTimeService abilityTimeService = new AbilityTimeService(abilityTimeDao);
+    PlayerService playerService = new PlayerService(playerDAO, playerMapper, abilityTimeService);
     ChallengeParticipationDAO challengeParticipationDAO = new ChallengeParticipationDAO();
     ChallengeParticipationMapper challengeParticipationMapper = new ChallengeParticipationMapper();
     ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO, challengeParticipationMapper);

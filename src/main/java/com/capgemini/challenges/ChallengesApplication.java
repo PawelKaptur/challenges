@@ -8,13 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChallengeApplication implements ApplicationRunner {
+public class ChallengesApplication implements ApplicationRunner {
 
     @Autowired
     private ChallengeService challengeService;
 
     public static void main(String[] args) {
-        SpringApplication.run(ChallengeApplication.class, args);
+        SpringApplication.run(ChallengesApplication.class, args);
     }
 
     @Override
