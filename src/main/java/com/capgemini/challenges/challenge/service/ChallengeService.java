@@ -1,12 +1,11 @@
 package com.capgemini.challenges.challenge.service;
 
 import com.capgemini.challenges.challenge.ChallengeEntity;
-import com.capgemini.challenges.challenge.UserStatus;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
-import com.capgemini.challenges.challengeParticipation.dto.ChallengeParticipationDTO;
-import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
+import com.capgemini.challenges.challengeparticipation.dto.ChallengeParticipationDTO;
+import com.capgemini.challenges.challengeparticipation.service.ChallengeParticipationService;
 import com.capgemini.challenges.player.dto.PlayerDTO;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +41,14 @@ public class ChallengeService {
 
         challengeDAO.addChallenge(challenge);
         challengeParticipationService.createChallengeParticipations(challenge.getChallengeId(), playersId);
-
     }
 
     public List<ChallengeDTO> showAcceptedChallenges(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
-        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
+        List<ChallengeParticipationDTO> acceptedParticipations = challengeParticipationService.findAllChallengesAcceptedByPlayer(playerId);
 
-        for (ChallengeParticipationDTO participation : challengeParticipationList) {
-            if (participation.getUserId() == playerId && participation.getUserStatus().equals(UserStatus.ACCEPTED)) {
-                challengeList.add(challengeDAO.findChallengeById(participation.getChallengeId()));
-            }
+        for (ChallengeParticipationDTO participation : acceptedParticipations) {
+            challengeList.add(challengeDAO.findChallengeById(participation.getChallengeId()));
         }
 
         return challengeMapper.convertListToDTOList(challengeList);
@@ -68,10 +64,10 @@ public class ChallengeService {
 
     public List<ChallengeDTO> showChallengesThrownAt(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
-        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
+        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengesByPlayer(playerId);
 
         for (ChallengeParticipationDTO participation : challengeParticipationList) {
-            if (participation.getUserId() == playerId && challengeDAO.findChallengeById(participation.getChallengeId()).getThrownBy() != playerId) {
+            if (challengeDAO.findChallengeById(participation.getChallengeId()).getThrownBy() != playerId) {
                 challengeList.add(challengeDAO.findChallengeById(participation.getChallengeId()));
             }
         }
@@ -80,14 +76,7 @@ public class ChallengeService {
     }
 
     public List<PlayerDTO> showOpponentsInfoBySelectingChallenge(long challengeId) {
-        List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();
-
-        List<Long> playersId = new ArrayList<>();
-        for (ChallengeParticipationDTO participation : challengeParticipationList) {
-            if (participation.getChallengeId() == challengeId) {
-                playersId.add(participation.getUserId());
-            }
-        }
+        List<Long> playersId = challengeParticipationService.findOpponentsInChallenge(challengeId);
 
         List<PlayerDTO> players = new ArrayList<>();
 

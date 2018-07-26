@@ -1,6 +1,8 @@
 package com.capgemini.challenges.challenge.dao;
 
 import com.capgemini.challenges.challenge.ChallengeEntity;
+import com.capgemini.challenges.challenge.UserStatus;
+import com.capgemini.challenges.challengeparticipation.dto.ChallengeParticipationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -53,6 +55,7 @@ public class ChallengeDAO {
 
         return challenge;
     }
+
 
     public void addChallenge(ChallengeEntity challenge) {
         challenge.setChallengeId(createID());

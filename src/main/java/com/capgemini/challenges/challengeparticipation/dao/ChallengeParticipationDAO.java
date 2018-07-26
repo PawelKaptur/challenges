@@ -1,12 +1,13 @@
-package com.capgemini.challenges.challengeParticipation.dao;
+package com.capgemini.challenges.challengeparticipation.dao;
 
 import com.capgemini.challenges.challenge.UserStatus;
-import com.capgemini.challenges.challengeParticipation.ChallengeParticipationEntity;
+import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
@@ -52,6 +53,25 @@ public class ChallengeParticipationDAO {
 
     public List<ChallengeParticipationEntity> findAllChallengeParticipations() {
         return challengeParticipations;
+    }
+
+    public List<ChallengeParticipationEntity> findAllChallengeParticipationsByPlayer(long playerId){
+        List<ChallengeParticipationEntity> participations = findAllChallengeParticipations();
+        return participations.stream().filter(c -> c.getUserId() == playerId).collect(Collectors.toList());
+    }
+
+    public List<ChallengeParticipationEntity> findAllChallengesAcceptedByPlayer(long playerId){
+        List<ChallengeParticipationEntity> participations = findAllChallengeParticipationsByPlayer(playerId);
+        return participations.stream().filter(c -> c.getUserStatus().equals(UserStatus.ACCEPTED)).collect(Collectors.toList());
+    }
+
+    public List<ChallengeParticipationEntity> findChallengeParticipationsByChallenge(long challengeId){
+        List<ChallengeParticipationEntity> participations = findAllChallengeParticipations();
+        return participations.stream().filter(c -> c.getChallengeId() == challengeId).collect(Collectors.toList());
+    }
+
+    public List<Long> findOpponentsInChallenge(long challengeId){
+        return findChallengeParticipationsByChallenge(challengeId).stream().map(c -> c.getUserId()).collect(Collectors.toList());
     }
 
     public static void setIdCounter(long idCounter) {

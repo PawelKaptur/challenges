@@ -1,8 +1,9 @@
-package com.capgemini.challenges.challengeParticipation.dto;
+package com.capgemini.challenges.challengeparticipation;
 
 import com.capgemini.challenges.challenge.UserStatus;
 
-public class ChallengeParticipationDTO {
+public class ChallengeParticipationEntity {
+
     private long challengeParticipationId;
 
     private long userId;
@@ -10,7 +11,15 @@ public class ChallengeParticipationDTO {
     private UserStatus userStatus;
     private String comment;
 
-    public ChallengeParticipationDTO() {
+    public ChallengeParticipationEntity(long challengeParticipationId, long userId, long challengeId, UserStatus userStatus, String comment) {
+        this.challengeParticipationId = challengeParticipationId;
+        this.userId = userId;
+        this.challengeId = challengeId;
+        this.userStatus = userStatus;
+        this.comment = comment;
+    }
+
+    public ChallengeParticipationEntity() {
     }
 
     public long getChallengeParticipationId() {

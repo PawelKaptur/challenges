@@ -4,12 +4,10 @@ package com.capgemini.challenges;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
-import static java.lang.System.currentTimeMillis;
 
 @Configuration
 @Aspect
@@ -20,12 +18,12 @@ public class MonitorAspect {
     private long finish;
     private long measurment;
 
-    @Before("execution(* com.capgemini.challenges.challenge.service.ChallengeService.showChallengesThrownAt(..))")
+    @Before("execution(* com.capgemini.challenges.challenge.service.ChallengeService.*(..))")
     public void startTime() {
         this.start = System.currentTimeMillis();
     }
 
-    @After("execution(* com.capgemini.challenges.challenge.service.ChallengeService.showChallengesThrownAt(..))")
+    @After("execution(* com.capgemini.challenges.challenge.service.ChallengeService.*(..))")
     public void stopTime() {
         this.finish = System.currentTimeMillis();
         measureTime();

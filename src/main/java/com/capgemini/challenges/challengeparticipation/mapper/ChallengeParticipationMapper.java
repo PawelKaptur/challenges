@@ -1,7 +1,7 @@
-package com.capgemini.challenges.challengeParticipation.mapper;
+package com.capgemini.challenges.challengeparticipation.mapper;
 
-import com.capgemini.challenges.challengeParticipation.ChallengeParticipationEntity;
-import com.capgemini.challenges.challengeParticipation.dto.ChallengeParticipationDTO;
+import com.capgemini.challenges.challengeparticipation.ChallengeParticipationEntity;
+import com.capgemini.challenges.challengeparticipation.dto.ChallengeParticipationDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
