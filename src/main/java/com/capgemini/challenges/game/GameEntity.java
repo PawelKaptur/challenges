@@ -7,7 +7,8 @@ public class GameEntity {
 
     private String name;
 
-    public GameEntity(String name) {
+    public GameEntity(long gameId, String name) {
+        this.gameId = gameId;
         this.name = name;
     }
 

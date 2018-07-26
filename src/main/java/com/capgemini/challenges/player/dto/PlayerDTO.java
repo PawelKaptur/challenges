@@ -11,13 +11,6 @@ public class PlayerDTO {
     private int score;
     private List<GameEntity> listOfOwnedGames;
 
-    public PlayerDTO(long playerId, String username, int score, List<GameEntity> listOfOwnedGames) {
-        this.playerId = playerId;
-        this.username = username;
-        this.score = score;
-        this.listOfOwnedGames = listOfOwnedGames;
-    }
-
     public PlayerDTO() {
     }
 
