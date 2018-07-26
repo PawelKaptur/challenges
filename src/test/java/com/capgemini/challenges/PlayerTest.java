@@ -2,6 +2,8 @@ package com.capgemini.challenges;
 
 import com.capgemini.challenges.player.PlayerEntity;
 import com.capgemini.challenges.player.dao.PlayerDAO;
+import com.capgemini.challenges.player.dto.PlayerDTO;
+import com.capgemini.challenges.player.mapper.PlayerMapper;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.junit.Test;
 
@@ -12,14 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PlayerTest {
 
     PlayerDAO playerDAO = new PlayerDAO();
-    PlayerService playerService = new PlayerService(playerDAO);
+    PlayerMapper playerMapper = new PlayerMapper();
+    PlayerService playerService = new PlayerService(playerDAO, playerMapper);
 
     @Test
     public void shouldAssertEqualsBecauseSuchUserExists(){
         //given
 
         //when
-        List<PlayerEntity> players = playerService.searchPlayerByUsername("peja");
+        List<PlayerDTO> players = playerService.searchPlayerByUsername("peja");
 
         //then
         assertThat(players.size()).isEqualTo(1);
@@ -31,9 +34,9 @@ public class PlayerTest {
         //given
 
         //when
-        List<PlayerEntity> players = playerService.searchPlayerByOwnedGames("Chess");
-        List<PlayerEntity> players2 = playerService.searchPlayerByOwnedGames("NotChess");
-        List<PlayerEntity> players3 = playerService.searchPlayerByOwnedGames("Avalon");
+        List<PlayerDTO> players = playerService.searchPlayerByOwnedGames("Chess");
+        List<PlayerDTO> players2 = playerService.searchPlayerByOwnedGames("NotChess");
+        List<PlayerDTO> players3 = playerService.searchPlayerByOwnedGames("Avalon");
 
         //then
         assertThat(players.size()).isEqualTo(2);

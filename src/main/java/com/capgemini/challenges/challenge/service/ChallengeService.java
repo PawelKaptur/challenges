@@ -36,8 +36,6 @@ public class ChallengeService {
         this.playerMapper = playerMapper;
     }
 
-
-
     public void createChallenge(long playerId, long gameId, List<Long> playersId, String message) {
         ChallengeEntity challenge = new ChallengeEntity();
         challenge.setThrownBy(playerId);
@@ -95,14 +93,14 @@ public class ChallengeService {
             }
         }
 
-        List<PlayerEntity> players = new ArrayList<>();
+        List<PlayerDTO> players = new ArrayList<>();
 
         for (Long id : playersId) {
-            PlayerEntity player = playerService.findPlayer(id);
+            PlayerDTO player = playerService.findPlayer(id);
             players.add(player);
         }
 
-        return playerMapper.convertListToDTOList(players);
+        return players;
     }
 
     public void endOfChallenge(long winnerId, long challengeId) {

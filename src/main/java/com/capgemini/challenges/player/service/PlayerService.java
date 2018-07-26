@@ -2,6 +2,8 @@ package com.capgemini.challenges.player.service;
 
 import com.capgemini.challenges.player.PlayerEntity;
 import com.capgemini.challenges.player.dao.PlayerDAO;
+import com.capgemini.challenges.player.dto.PlayerDTO;
+import com.capgemini.challenges.player.mapper.PlayerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +16,16 @@ import java.util.stream.Stream;
 public class PlayerService {
 
     private PlayerDAO playerDAO;
+    private PlayerMapper playerMapper;
 
     @Autowired
-    public PlayerService(PlayerDAO playerDAO) {
+    public PlayerService(PlayerDAO playerDAO, PlayerMapper playerMapper) {
         this.playerDAO = playerDAO;
+        this.playerMapper = playerMapper;
     }
-
-    public PlayerEntity findPlayer(long playerId) {
-        return playerDAO.findPlayerById(playerId);
+    
+    public PlayerDTO findPlayer(long playerId) {
+        return playerMapper.convertToDTO(playerDAO.findPlayerById(playerId));
     }
 
     public void addPoints(long playerId, int points) {
@@ -29,15 +33,15 @@ public class PlayerService {
         player.setScore(player.getScore() + points);
     }
 
-    public List<PlayerEntity> searchPlayerByUsername(String username) {
+    public List<PlayerDTO> searchPlayerByUsername(String username) {
         List<PlayerEntity> players = playerDAO.findAllPlayers();
         Stream<PlayerEntity> stream = players.stream();
         List<PlayerEntity> foundPlayers = stream.filter(p -> p.getUsername().equals(username)).collect(Collectors.toList());
 
-        return foundPlayers;
+        return playerMapper.convertListToDTOList(foundPlayers);
     }
 
-    public List<PlayerEntity> searchPlayerByOwnedGames(String gameName) {
+    public List<PlayerDTO> searchPlayerByOwnedGames(String gameName) {
         List<PlayerEntity> players = playerDAO.findAllPlayers();
         List<PlayerEntity> foundPlayers = new ArrayList<>();
         for (PlayerEntity player : players) {
@@ -48,6 +52,6 @@ public class PlayerService {
             }
         }
 
-        return foundPlayers;
+        return playerMapper.convertListToDTOList(foundPlayers);
     }
 }

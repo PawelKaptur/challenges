@@ -25,11 +25,11 @@ public class ChallengeTests {
 
     ChallengeDAO challengeDAO = new ChallengeDAO();
     PlayerDAO playerDAO = new PlayerDAO();
-    PlayerService playerService = new PlayerService(playerDAO);
+    PlayerMapper playerMapper = new PlayerMapper();
+    PlayerService playerService = new PlayerService(playerDAO, playerMapper);
     ChallengeParticipationDAO challengeParticipationDAO = new ChallengeParticipationDAO();
     ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO);
     ChallengeMapper challengeMapper = new ChallengeMapper();
-    PlayerMapper playerMapper = new PlayerMapper();
     ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper, playerMapper);
 
     @After
