@@ -31,7 +31,7 @@ public class ChallengeTests {
     ChallengeParticipationMapper challengeParticipationMapper = new ChallengeParticipationMapper();
     ChallengeParticipationService challengeParticipationService = new ChallengeParticipationService(challengeParticipationDAO, challengeParticipationMapper);
     ChallengeMapper challengeMapper = new ChallengeMapper();
-    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper, playerMapper);
+    ChallengeService challengeService = new ChallengeService(challengeDAO, playerService, challengeParticipationService, challengeMapper);
 
     @After
     public void emptyList(){

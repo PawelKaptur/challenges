@@ -57,11 +57,7 @@ public class ChallengeParticipationService {
         }
     }
 
-   // public List<ChallengeParticipationEntity> findAllChallengeParticipations(){
-     //   return challengeParticipationDAO.findAllChallengeParticipations();
-   // }
-
-    public List<ChallengeParticipationDTO> findAllChallengeParticipations(){
+    public List<ChallengeParticipationDTO> findAllChallengeParticipations() {
         return mapper.convertListToDTOList(challengeParticipationDAO.findAllChallengeParticipations());
     }
 }

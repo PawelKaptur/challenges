@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Repository
 public class GameDAO {
@@ -15,7 +14,7 @@ public class GameDAO {
         addGames();
     }
 
-    private void addGames(){
+    private void addGames() {
         listOfGames.add(new GameEntity("Chess"));
         listOfGames.add(new GameEntity("Gloomhaven"));
         listOfGames.add(new GameEntity("Runewars"));
@@ -25,11 +24,5 @@ public class GameDAO {
 
     public List<GameEntity> getListOfGames() {
         return listOfGames;
-    }
-
-    public GameEntity findGameByName(String gameName){
-        Stream<GameEntity> stream = listOfGames.stream();
-        GameEntity game = stream.filter(g -> g.getName().equals(gameName)).findFirst().get();
-        return game;
     }
 }

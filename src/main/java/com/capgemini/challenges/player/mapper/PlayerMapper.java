@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class PlayerMapper {
 
-    public PlayerDTO convertToDTO(PlayerEntity player){
+    public PlayerDTO convertToDTO(PlayerEntity player) {
         PlayerDTO playerDTO = new PlayerDTO();
         playerDTO.setPlayerId(player.getPlayerId());
         playerDTO.setUsername(player.getUsername());
@@ -20,7 +20,7 @@ public class PlayerMapper {
         return playerDTO;
     }
 
-    public List<PlayerDTO> convertListToDTOList(List<PlayerEntity> players){
+    public List<PlayerDTO> convertListToDTOList(List<PlayerEntity> players) {
         return players.stream().map(c -> convertToDTO(c)).collect(Collectors.toList());
     }
 }

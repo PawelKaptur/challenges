@@ -10,14 +10,6 @@ public class ChallengeParticipationDTO {
     private UserStatus userStatus;
     private String comment;
 
-    public ChallengeParticipationDTO(long challengeParticipationId, long userId, long challengeId, UserStatus userStatus, String comment) {
-        this.challengeParticipationId = challengeParticipationId;
-        this.userId = userId;
-        this.challengeId = challengeId;
-        this.userStatus = userStatus;
-        this.comment = comment;
-    }
-
     public ChallengeParticipationDTO() {
     }
 

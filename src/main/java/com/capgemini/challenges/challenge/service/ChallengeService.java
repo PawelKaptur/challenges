@@ -8,7 +8,6 @@ import com.capgemini.challenges.challenge.mapper.ChallengeMapper;
 import com.capgemini.challenges.challengeParticipation.dto.ChallengeParticipationDTO;
 import com.capgemini.challenges.challengeParticipation.service.ChallengeParticipationService;
 import com.capgemini.challenges.player.dto.PlayerDTO;
-import com.capgemini.challenges.player.mapper.PlayerMapper;
 import com.capgemini.challenges.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,15 +23,13 @@ public class ChallengeService {
     private PlayerService playerService;
     private ChallengeParticipationService challengeParticipationService;
     private ChallengeMapper challengeMapper;
-    private PlayerMapper playerMapper;
 
     @Autowired
-    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService, ChallengeParticipationService challengeParticipationService, ChallengeMapper challengeMapper, PlayerMapper playerMapper) {
+    public ChallengeService(ChallengeDAO challengeDAO, PlayerService playerService, ChallengeParticipationService challengeParticipationService, ChallengeMapper challengeMapper) {
         this.challengeDAO = challengeDAO;
         this.playerService = playerService;
         this.challengeParticipationService = challengeParticipationService;
         this.challengeMapper = challengeMapper;
-        this.playerMapper = playerMapper;
     }
 
     public void createChallenge(long playerId, long gameId, List<Long> playersId, String message) {
@@ -45,6 +42,7 @@ public class ChallengeService {
 
         challengeDAO.addChallenge(challenge);
         challengeParticipationService.createChallengeParticipations(challenge.getChallengeId(), playersId);
+
     }
 
     public List<ChallengeDTO> showAcceptedChallenges(long playerId) {
@@ -67,7 +65,7 @@ public class ChallengeService {
     public List<ChallengeDTO> showChallengesThrownBy(long playerId) {
         return challengeMapper.convertListToDTOList(challengeDAO.findChallengesThrownBy(playerId));
     }
-    
+
     public List<ChallengeDTO> showChallengesThrownAt(long playerId) {
         List<ChallengeEntity> challengeList = new ArrayList<>();
         List<ChallengeParticipationDTO> challengeParticipationList = challengeParticipationService.findAllChallengeParticipations();

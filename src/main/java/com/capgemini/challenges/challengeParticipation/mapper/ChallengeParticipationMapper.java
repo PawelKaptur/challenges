@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class ChallengeParticipationMapper {
 
-    public ChallengeParticipationDTO convertToDTO(ChallengeParticipationEntity participation){
+    public ChallengeParticipationDTO convertToDTO(ChallengeParticipationEntity participation) {
         ChallengeParticipationDTO participationDTO = new ChallengeParticipationDTO();
         participationDTO.setChallengeParticipationId(participation.getChallengeId());
         participationDTO.setUserId(participation.getUserId());
@@ -21,7 +21,7 @@ public class ChallengeParticipationMapper {
         return participationDTO;
     }
 
-    public List<ChallengeParticipationDTO> convertListToDTOList(List<ChallengeParticipationEntity> participations){
+    public List<ChallengeParticipationDTO> convertListToDTOList(List<ChallengeParticipationEntity> participations) {
         return participations.stream().map(c -> convertToDTO(c)).collect(Collectors.toList());
     }
 }
