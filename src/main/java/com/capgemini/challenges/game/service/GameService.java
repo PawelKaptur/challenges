@@ -5,8 +5,6 @@ import com.capgemini.challenges.game.dao.GameDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Stream;
-
 @Service
 public class GameService {
 
@@ -17,7 +15,7 @@ public class GameService {
         this.gameDAO = gameDAO;
     }
 
-    public Game findGameByName(String gameName){
+    public Game findGameByName(String gameName) {
         return gameDAO.findGameByName(gameName);
     }
 }

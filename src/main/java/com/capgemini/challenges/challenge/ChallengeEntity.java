@@ -1,7 +1,6 @@
 package com.capgemini.challenges.challenge;
 
 import java.util.Date;
-import java.util.Map;
 
 public class ChallengeEntity {
 
@@ -12,9 +11,6 @@ public class ChallengeEntity {
     private boolean challengeStatus;
     private Date dateOfChallenge;
     private String invitationMessage;
-
-    //private Map<Long, UserStatus> userDecision;
-
 
     public ChallengeEntity(long challengeId, long thrownBy, long gameId, boolean challengeStatus, Date dateOfChallenge, String invitationMessage) {
         this.challengeId = challengeId;

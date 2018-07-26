@@ -1,6 +1,5 @@
 package com.capgemini.challenges.player.service;
 
-import com.capgemini.challenges.game.Game;
 import com.capgemini.challenges.game.service.GameService;
 import com.capgemini.challenges.player.Player;
 import com.capgemini.challenges.player.dao.PlayerDAO;
@@ -24,16 +23,16 @@ public class PlayerService {
         this.gameService = gameService;
     }
 
-    public Player findPlayer(long playerId){
+    public Player findPlayer(long playerId) {
         return playerDAO.findPlayerById(playerId);
     }
 
-    public void addPoints(long playerId, int points){
+    public void addPoints(long playerId, int points) {
         Player player = playerDAO.findPlayerById(playerId);
         player.setScore(player.getScore() + points);
     }
 
-    public List<Player> searchPlayerByUsername(String username){
+    public List<Player> searchPlayerByUsername(String username) {
         List<Player> players = playerDAO.findAllPlayers();
         Stream<Player> stream = players.stream();
         List<Player> foundPlayers = stream.filter(p -> p.getUsername().equals(username)).collect(Collectors.toList());
@@ -41,16 +40,15 @@ public class PlayerService {
         return foundPlayers;
     }
 
-    public List<Player> searchPlayerByOwnedGames(String gameName){
+    public List<Player> searchPlayerByOwnedGames(String gameName) {
         List<Player> players = playerDAO.findAllPlayers();
         List<Player> foundPlayers = new ArrayList<>();
-        for (Player player: players) {
-            for(int i = 0; i < player.getListOfOwnedGames().size(); i++){
-                if(player.getListOfOwnedGames().get(i).getName().equals(gameName)){
+        for (Player player : players) {
+            for (int i = 0; i < player.getListOfOwnedGames().size(); i++) {
+                if (player.getListOfOwnedGames().get(i).getName().equals(gameName)) {
                     foundPlayers.add(player);
                 }
             }
-
         }
 
         return foundPlayers;

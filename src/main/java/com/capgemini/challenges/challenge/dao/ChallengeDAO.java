@@ -1,11 +1,13 @@
 package com.capgemini.challenges.challenge.dao;
 
 import com.capgemini.challenges.challenge.ChallengeEntity;
-import com.capgemini.challenges.challenge.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
@@ -23,25 +25,26 @@ public class ChallengeDAO {
     }
 
     private void addChallenges() {
-        String message = "hej";
-        String message2 = "hejhej";
-        String message3 = "hejhejhej";
-        String message4 = "hejhejhejhej";
-        String message5 = "hejhejhejhejhejhejhej";
-        String message6 = "hejhejhejhejhejhejhejhejhejhej";
-        challenges.add(new ChallengeEntity(createID(), -1,  2, false, new Date(),message));
-        challenges.add(new ChallengeEntity(createID(), 2,  3, false, new Date(),message2));
-        challenges.add(new ChallengeEntity(createID(), 4, 4, false, new Date(),message3));
-        challenges.add(new ChallengeEntity(createID(), 0, 5, false, new Date(),message4));
-        challenges.add(new ChallengeEntity(createID(), 2, 6, false, new Date(),message5));
-        challenges.add(new ChallengeEntity(createID(), -1,4,false, new Date(),message6));
+        String message = "hi";
+        String message2 = "hihihi";
+        String message3 = "hihihihi";
+        String message4 = "hihihihihi";
+        String message5 = "hihihihihihi";
+        String message6 = "hihihihihihihi";
+        challenges.add(new ChallengeEntity(createID(), -1, 2, false, new Date(), message));
+        challenges.add(new ChallengeEntity(createID(), 2, 3, false, new Date(), message2));
+        challenges.add(new ChallengeEntity(createID(), 4, 4, false, new Date(), message3));
+        challenges.add(new ChallengeEntity(createID(), 0, 5, false, new Date(), message4));
+        challenges.add(new ChallengeEntity(createID(), 2, 6, false, new Date(), message5));
+        challenges.add(new ChallengeEntity(createID(), -1, 4, false, new Date(), message6));
     }
 
-
-    //w bazie danych juz streamy robic a nie w serwisie takze komentarz w srodku spoko, tylko do innej metody
     public List<ChallengeEntity> findAllChallenges() {
-        // challenges.stream().filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
         return challenges;
+    }
+
+    public List<ChallengeEntity> findChallengesThrownBy(long playerId) {
+        return challenges.stream().filter(c -> c.getThrownBy() == playerId).collect(Collectors.toList());
     }
 
     public ChallengeEntity findChallengeById(long id) {
@@ -54,10 +57,6 @@ public class ChallengeDAO {
     public void addChallenge(ChallengeEntity challenge) {
         challenge.setChallengeId(createID());
         challenges.add(challenge);
-    }
-
-    public void removeChallenge(ChallengeEntity challenge) {
-        challenges.remove(challenge);
     }
 
     public static void setIdCounter(long idCounter) {

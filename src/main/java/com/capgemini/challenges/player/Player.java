@@ -12,7 +12,6 @@ public class Player {
 
     //dodac jeszcze ability time, moze jako osobna klasa
 
-    //to nie wiem czy dobrze
     private List<Game> listOfOwnedGames;
 
     public Player(long playerId, String username, List<Game> listOfOwnedGames) {
