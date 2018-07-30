@@ -23,18 +23,18 @@ public class ChallengeParticipationService {
         this.mapper = challengeParticipationMapper;
     }
 
-    public void createChallengeParticipation(long challengeId, long playersId) {
+    public void createChallengeParticipations(long challengeId, List<Long> playersId) {
+        for (Long playerId : playersId) {
+            createChallengeParticipation(challengeId, playerId);
+        }
+    }
+
+    private void createChallengeParticipation(long challengeId, long playersId) {
         ChallengeParticipationEntity challengeParticipation = new ChallengeParticipationEntity();
         challengeParticipation.setChallengeId(challengeId);
         challengeParticipation.setUserId(playersId);
 
         challengeParticipationDAO.addChallengeParticipation(challengeParticipation);
-    }
-
-    public void createChallengeParticipations(long challengeId, List<Long> playersId) {
-        for (Long playerId : playersId) {
-            createChallengeParticipation(challengeId, playerId);
-        }
     }
 
     public void acceptChallenge(ChallengeParticipationEntity challengeParticipation, String comment) {
