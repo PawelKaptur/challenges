@@ -110,4 +110,8 @@ public class ChallengeService {
         int points = 10;
         playerService.addPoints(winnerId, points);
     }
+
+    public ChallengeDTO findChallengeById(long challengeId){
+        return challengeMapper.convertToDTO(challengeDAO.findChallengeById(challengeId));
+    }
 }

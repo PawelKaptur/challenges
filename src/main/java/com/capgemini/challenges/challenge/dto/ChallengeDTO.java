@@ -8,7 +8,7 @@ public class ChallengeDTO {
 
     private long thrownBy;
     private long gameId;
-    private boolean challengeStatus;
+    private boolean isGameIsEnd;
     private Date dateOfChallenge;
     private String invitationMessage;
 
@@ -28,8 +28,8 @@ public class ChallengeDTO {
         this.gameId = gameId;
     }
 
-    public void setChallengeStatus(boolean challengeStatus) {
-        this.challengeStatus = challengeStatus;
+    public void setGameIsEnd(boolean gameIsEnd) {
+        this.isGameIsEnd = gameIsEnd;
     }
 
     public void setDateOfChallenge(Date dateOfChallenge) {
@@ -52,8 +52,8 @@ public class ChallengeDTO {
         return gameId;
     }
 
-    public boolean isChallengeStatus() {
-        return challengeStatus;
+    public boolean isGameIsEnd() {
+        return isGameIsEnd;
     }
 
     public Date getDateOfChallenge() {

@@ -39,9 +39,10 @@ public class ChallengeController {
         return "Challenge created";
     }
 
-    @GetMapping("challenge/")
-    public List<ChallengeDTO> findChallenge(){
-
-        return null;
+    @GetMapping("challenge/{challengeId}")
+    public List<ChallengeDTO> findChallenge(@ModelAttribute("challengeId")long challengeId){
+        List<ChallengeDTO> challenges = new ArrayList<>();
+        challenges.add(challengeService.findChallengeById(challengeId));
+        return challenges;
     }
 }
