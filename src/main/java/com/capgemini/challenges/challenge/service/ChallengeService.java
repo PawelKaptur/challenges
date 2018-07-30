@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,11 +32,11 @@ public class ChallengeService {
         this.challengeMapper = challengeMapper;
     }
 
-    public void createChallenge(long playerId, long gameId, List<Long> playersId, String message) {
+    public void createChallenge(long playerId, long gameId, List<Long> playersId, String message, long dateOfChallenge) {
         ChallengeEntity challenge = new ChallengeEntity();
         challenge.setThrownBy(playerId);
         challenge.setGameId(gameId);
-        challenge.setDateOfChallenge(new Date());
+        challenge.setDateOfChallenge(new Date(dateOfChallenge));
         challenge.setInvitationMessage(message);
         challenge.setGameIsEnd(false);
 

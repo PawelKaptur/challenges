@@ -52,9 +52,10 @@ public class ChallengeTests {
         playersId.add(2L);
         playersId.add(3L);
         String message = "Lets dance";
+        long dateOfChallenge = 10000000000000L;
 
         //when
-        challengeService.createChallenge(10, 10, playersId, message);
+        challengeService.createChallenge(10, 10, playersId, message, dateOfChallenge);
 
         //then
         assertThat(challengeDAO.findAllChallenges().size()).isEqualTo(7);
@@ -68,9 +69,10 @@ public class ChallengeTests {
         playersId.add(2L);
         playersId.add(3L);
         String message = "Lets dance";
+        long dateOfChallenge = 10000000000000L;
 
         //when
-        challengeService.createChallenge(10, 10, playersId, message);
+        challengeService.createChallenge(10, 10, playersId, message, dateOfChallenge);
         long challengeId = challengeDAO.findAllChallenges().get(challengeDAO.findAllChallenges().size() - 1).getChallengeId();
         long challengeId2 = challengeDAO.findAllChallenges().get(challengeDAO.findAllChallenges().size() - 2).getChallengeId();
 

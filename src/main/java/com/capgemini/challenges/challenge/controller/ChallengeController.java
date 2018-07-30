@@ -23,19 +23,25 @@ public class ChallengeController {
         this.challengeService = challengeService;
     }
 
-    @GetMapping("/challenge/{id}")
+    @GetMapping("/challengethrownat/{id}")
     public List<ChallengeDTO> showChallengesThrownAt(@ModelAttribute("id") long playerId){
         return challengeService.showChallengesThrownAt(playerId);
     }
 
     @PostMapping("/create")
-    public String createChallenge(long playerId, long gameId, String comment, long... args){
+    public String createChallenge(long playerId, long gameId, String comment, long dateOfChallenge, long... args){
         List<Long> playersId = new ArrayList<>();
         for (long arg: args){
             playersId.add(arg);
         }
 
-        challengeService.createChallenge(playerId, gameId, playersId, comment);
+        challengeService.createChallenge(playerId, gameId, playersId, comment,dateOfChallenge);
         return "Challenge created";
+    }
+
+    @GetMapping("challenge/")
+    public List<ChallengeDTO> findChallenge(){
+
+        return null;
     }
 }

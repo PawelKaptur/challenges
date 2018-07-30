@@ -30,12 +30,12 @@ public class ChallengeDAO {
         String message4 = "hihihihihi";
         String message5 = "hihihihihihi";
         String message6 = "hihihihihihihi";
-        challenges.add(new ChallengeEntity(createID(), -1, 2, false, new Date(), message));
-        challenges.add(new ChallengeEntity(createID(), 2, 3, false, new Date(), message2));
-        challenges.add(new ChallengeEntity(createID(), 4, 4, false, new Date(), message3));
-        challenges.add(new ChallengeEntity(createID(), 0, 5, false, new Date(), message4));
-        challenges.add(new ChallengeEntity(createID(), 2, 6, false, new Date(), message5));
-        challenges.add(new ChallengeEntity(createID(), -1, 4, false, new Date(), message6));
+        challenges.add(new ChallengeEntity(createID(), -1, 2, false, new Date(10000000000000L), message));
+        challenges.add(new ChallengeEntity(createID(), 2, 3, false, new Date(10000000000001L), message2));
+        challenges.add(new ChallengeEntity(createID(), 4, 4, false, new Date(10000000000002L), message3));
+        challenges.add(new ChallengeEntity(createID(), 0, 5, false, new Date(10000000000003L), message4));
+        challenges.add(new ChallengeEntity(createID(), 2, 6, false, new Date(10000000000004L), message5));
+        challenges.add(new ChallengeEntity(createID(), -1, 4, false, new Date(10000000000005L), message6));
     }
 
     public List<ChallengeEntity> findAllChallenges() {
