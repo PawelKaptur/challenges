@@ -6,9 +6,9 @@ public class ChallengeDTO {
 
     private long challengeId;
 
-    private long thrownBy;
+    private Long thrownBy;
     private long gameId;
-    private boolean isGameIsEnd;
+    private Boolean isGameIsEnd;
     private Date dateOfChallenge;
     private String invitationMessage;
 
@@ -20,7 +20,7 @@ public class ChallengeDTO {
         this.challengeId = challengeId;
     }
 
-    public void setThrownBy(long thrownBy) {
+    public void setThrownBy(Long thrownBy) {
         this.thrownBy = thrownBy;
     }
 
@@ -28,7 +28,7 @@ public class ChallengeDTO {
         this.gameId = gameId;
     }
 
-    public void setGameIsEnd(boolean gameIsEnd) {
+    public void setGameIsEnd(Boolean gameIsEnd) {
         this.isGameIsEnd = gameIsEnd;
     }
 
@@ -44,7 +44,7 @@ public class ChallengeDTO {
         return challengeId;
     }
 
-    public long getThrownBy() {
+    public Long getThrownBy() {
         return thrownBy;
     }
 
@@ -52,7 +52,7 @@ public class ChallengeDTO {
         return gameId;
     }
 
-    public boolean isGameIsEnd() {
+    public Boolean isGameIsEnd() {
         return isGameIsEnd;
     }
 

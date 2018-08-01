@@ -21,43 +21,32 @@ public class ChallengeController {
     }
 
     @GetMapping("/challengethrownat/{id}")
-    public List<ChallengeDTO> showChallengesThrownAt(@ModelAttribute("id") long playerId){
+    public List<ChallengeDTO> showChallengesThrownAt(@ModelAttribute("id") long playerId) {
         return challengeService.showChallengesThrownAt(playerId);
     }
 
     @PostMapping("/create")
-    public String createChallenge(long playerId, long gameId, String comment, long dateOfChallenge, long... args){
+    public String createChallenge(long playerId, long gameId, String comment, long dateOfChallenge, long... args) {
         List<Long> playersId = new ArrayList<>();
-        for (long arg: args){
+        for (long arg : args) {
             playersId.add(arg);
         }
 
-        challengeService.createChallenge(playerId, gameId, playersId, comment,dateOfChallenge);
+        challengeService.createChallenge(playerId, gameId, playersId, comment, dateOfChallenge);
         return "Challenge created";
     }
 
     @PostMapping("/challenge/find")
     public List<ChallengeDTO> findChallenge(@RequestParam(value = "thrownBy", required = false) Long thrownBy,
                                             @RequestParam(value = "end", required = false) Boolean isGameIsEnd,
-                                            @RequestParam(value = "message", required = false) String message){
+                                            @RequestParam(value = "message", required = false) String message) {
         ChallengeDTO challengeDTO = new ChallengeDTO();
-        if(thrownBy != null){
-            challengeDTO.setThrownBy(thrownBy);
-        }
-        if(isGameIsEnd != null){
-            challengeDTO.setGameIsEnd(isGameIsEnd);
-        }
-        if(message != null){
-            challengeDTO.setInvitationMessage(message);
-        }
+
+        challengeDTO.setThrownBy(thrownBy);
+        challengeDTO.setGameIsEnd(isGameIsEnd);
+        challengeDTO.setInvitationMessage(message);
 
         List<ChallengeDTO> challenges = challengeService.findChallengesByParams(challengeDTO);
         return challenges;
     }
-
- /*   @ExceptionHandler({NotFound.class})
-    public String handleException(Model model) {
-        model.addAttribute("error", "Access denied, normal user cannot remove books");
-        return "403";
-    }*/
 }
