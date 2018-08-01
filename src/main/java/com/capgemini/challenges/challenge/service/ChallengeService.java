@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChallengeService {
@@ -111,7 +111,18 @@ public class ChallengeService {
         playerService.addPoints(winnerId, points);
     }
 
-    public ChallengeDTO findChallengeById(long challengeId){
+    public ChallengeDTO findChallengeById(long challengeId) {
         return challengeMapper.convertToDTO(challengeDAO.findChallengeById(challengeId));
+    }
+
+    public List<ChallengeDTO> findChallengesByParams(ChallengeDTO challengeDTO) {
+        List<ChallengeDTO> challenges;
+        challenges = showChallengesThrownBy(challengeDTO.getThrownBy());
+        challenges = challenges.stream().filter(c -> c.isGameIsEnd() == challengeDTO.isGameIsEnd()).collect(Collectors.toList());
+        if(challengeDTO.getInvitationMessage() != null){
+            challenges = challenges.stream().filter(c -> c.getInvitationMessage().equals(challengeDTO.getInvitationMessage())).collect(Collectors.toList());
+        }
+
+        return challenges;
     }
 }
