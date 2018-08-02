@@ -21,12 +21,12 @@ public class ChallengeController {
     }
 
     @GetMapping("/challengethrownat/{id}")
-    public List<ChallengeDTO> showChallengesThrownAt(@ModelAttribute("id") long playerId) {
+    public List<ChallengeDTO> showChallengesThrownAt(@PathVariable("id") long playerId) {
         return challengeService.showChallengesThrownAt(playerId);
     }
 
     @PostMapping("/create")
-    public String createChallenge(long playerId, long gameId, String comment, long dateOfChallenge, long... args) {
+    public String createChallenge(@RequestParam("playerId") long playerId,@RequestParam("gameId") long gameId, @RequestParam("comment") String comment, @RequestParam("date") long dateOfChallenge, @RequestParam("args") long... args) {
         List<Long> playersId = new ArrayList<>();
         for (long arg : args) {
             playersId.add(arg);

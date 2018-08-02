@@ -111,23 +111,6 @@ public class ChallengeService {
         playerService.addPoints(winnerId, points);
     }
 
-    public ChallengeDTO findChallengeById(long challengeId) {
-        return challengeMapper.convertToDTO(challengeDAO.findChallengeById(challengeId));
-    }
-
- /*   public List<ChallengeDTO> findChallengesByParams(ChallengeDTO challengeDTO) {
-        List<ChallengeDTO> challenges = challengeMapper.convertListToDTOList(challengeDAO.findAllChallenges());
-        //if(challengeDTO.getThrownBy() != null){
-        //challenges = showChallengesThrownBy(challengeDTO.getThrownBy());
-        //challenges = showChallengesThrownBy(challengeDTO.getThrownBy());
-        challenges = challenges.stream().filter(c -> c.isGameIsEnd() == challengeDTO.isGameIsEnd()).collect(Collectors.toList());
-        if(challengeDTO.getInvitationMessage() != null){
-            challenges = challenges.stream().filter(c -> c.getInvitationMessage().equals(challengeDTO.getInvitationMessage())).collect(Collectors.toList());
-        }
-
-        return challenges;
-    }  */
-
     public List<ChallengeDTO> findChallengesByParams(ChallengeDTO challengeDTO) {
         List<ChallengeDTO> challenges = challengeMapper.convertListToDTOList(challengeDAO.findAllChallenges());
         if(challengeDTO.getThrownBy() != null){
