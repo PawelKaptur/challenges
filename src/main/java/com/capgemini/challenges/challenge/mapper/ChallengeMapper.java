@@ -15,7 +15,7 @@ public class ChallengeMapper {
         challengeDTO.setChallengeId(challenge.getChallengeId());
         challengeDTO.setThrownBy(challenge.getThrownBy());
         challengeDTO.setGameId(challenge.getGameId());
-        challengeDTO.setChallengeStatus(challenge.isGameIsEnd());
+        challengeDTO.setGameIsEnd(challenge.isGameIsEnd());
         challengeDTO.setDateOfChallenge(challenge.getDateOfChallenge());
         challengeDTO.setInvitationMessage(challenge.getInvitationMessage());
 

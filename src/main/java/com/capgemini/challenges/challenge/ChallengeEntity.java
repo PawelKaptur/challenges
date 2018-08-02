@@ -6,9 +6,9 @@ public class ChallengeEntity {
 
     private long challengeId;
 
-    private long thrownBy;
+    private Long thrownBy;
     private long gameId;
-    private boolean isGameIsEnd;
+    private Boolean isGameIsEnd;
     private Date dateOfChallenge;
     private String invitationMessage;
 
