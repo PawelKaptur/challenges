@@ -1,28 +1,23 @@
 package com.capgemini.challenges;
 
-import com.capgemini.challenges.challenge.controller.ChallengeController;
 import com.capgemini.challenges.challenge.dao.ChallengeDAO;
 import com.capgemini.challenges.challenge.dto.ChallengeDTO;
 import com.capgemini.challenges.challenge.service.ChallengeService;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.sun.javaws.JnlpxArgs.verify;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -34,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class SpringTest {
 
-
+    @Autowired
     private MockMvc mockMvc;
 
     @Mock
@@ -46,7 +41,6 @@ public class SpringTest {
     @Before
     public void setUp() {
         challengeDAO = new ChallengeDAO();
-        mockMvc = MockMvcBuilders.standaloneSetup(new ChallengeController(challengeServiceMock)).build();
     }
 
     @Test
@@ -76,15 +70,16 @@ public class SpringTest {
         ResultActions actions = mockMvc.perform(post("/create").param("playerId", "1").param("gameId", "1").param("comment", "asd").param("date", "200000000000").param("args", "1", "2", "3"));
 
         //then
-        actions.andExpect(content().string(containsString("Challenge created")))
-        .andExpect(status().isOk());
+        actions.andExpect(status().isOk())
+                .andExpect(content().string(containsString("Challenge created")));
+
     }
 
     @Test
     public void findChallengeByAllParameters() throws Exception {
 
         //when
-        ResultActions actions = mockMvc.perform(post("/challenge/find").param("thrownBy", "1").param("end", "false").param("message","hi"));
+        ResultActions actions = mockMvc.perform(post("/challenge/find").param("thrownBy", "1").param("end", "false").param("message", "hi"));
 
         //then
         actions.andExpect(status().isOk());
@@ -94,7 +89,7 @@ public class SpringTest {
     public void findChallengeByMessage() throws Exception {
 
         //when
-        ResultActions actions = mockMvc.perform(post("/challenge/find").param("message","hihihi"));
+        ResultActions actions = mockMvc.perform(post("/challenge/find").param("message", "hihihi"));
 
         //then
         actions.andExpect(status().isOk());
